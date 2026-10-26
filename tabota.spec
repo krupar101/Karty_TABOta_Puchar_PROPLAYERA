@@ -9,7 +9,9 @@ datas = [(str(root / "cursor"), "cursor"), (str(root / "ikona.png"), "."), (str(
          (str(root / "music"), "music"),
          (str(root / "tabota/ui"), "tabota/ui"),
          (str(root / "docs"), "docs"),
-         (str(root / "README.md"), ".")]
+         (str(root / "README.md"), "."),
+         (str(root / "LICENSE"), "."),
+         (str(root / "LICENSE_SCOPE.md"), ".")]
 a = Analysis([str(root / "main.py")], pathex=[str(root)], binaries=[], datas=datas,
              hiddenimports=["PySide6.QtQuick", "PySide6.QtQuickControls2", "PySide6.QtMultimedia"],
              hookspath=[], hooksconfig={}, runtime_hooks=[], excludes=[], noarchive=False)

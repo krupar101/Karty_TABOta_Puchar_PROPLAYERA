@@ -7,6 +7,17 @@ Najnowsza iteracja UI: własny kursor (normal/grab/click), podgląd hover także
 Aktualne poprawki 12 zgłoszeń: [opis zmian i wyniki kontroli](docs/FIXES_2026-10-26.md).
 Starsze sekcje „Aktualizacja” poniżej są historią prac; bieżące zachowanie opisuje ten raport.
 
+## Licencja
+
+Kod projektu: [MIT](LICENSE), Copyright (c) 2026 krupar101. Możesz używać,
+modyfikować i rozpowszechniać kod, także komercyjnie, zachowując informację
+copyright i tekst licencji. Oprogramowanie jest dostarczane bez gwarancji
+na warunkach MIT.
+
+Grafiki, muzyka i inne dostarczone materiały nie są objęte MIT na kod.
+Zależności i fonty zachowują własne licencje. Zobacz [zakres licencji](LICENSE_SCOPE.md)
+oraz [informacje o materiałach i zależnościach](docs/THIRD_PARTY.md).
+
 ## Uruchomienie ze źródeł
 
 Potrzebujesz 64-bitowego Pythona 3.10–3.14. Do budowania zalecany Python 3.12. Otwórz terminal w katalogu projektu.
