@@ -137,7 +137,12 @@ Item {
         // A number alone is ambiguous; every cost and power value has its own icon.
         Rectangle {
             visible: card.battle && card.faceUp && card.info.kind !== "token" && card.info.cost !== undefined
-            x: -5; y: card.onTable && card.info.nameRuleBadge ? 18 : -7; width: 43; height: 28; radius: 14
+            objectName: "tabotaEnergyBadge"
+            x: -5
+            // Keep the original chip size at the top-left. Lift it above the
+            // edge only when a wide rule badge would otherwise overlap it.
+            y: card.onTable && ruleNameBadge.visible && ruleNameBadge.x < 40 ? -28 : -7
+            width: 43; height: 28; radius: 14
             color: "#322046"; border.color: Theme.purple; border.width: 2
             Row {
                 anchors.centerIn: parent; spacing: 3

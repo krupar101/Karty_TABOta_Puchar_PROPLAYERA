@@ -36,13 +36,13 @@ class BadgePlacementTests(unittest.TestCase):
                 x = width - badge_width - (1 if compact else 0)
                 y = 2
                 badge = (x, y, x + badge_width, y + badge_height)
-                cost = (-5, 18, 38, 46)
+                cost_y = -28 if x < 40 else -7
+                cost = (-5, cost_y, 38, cost_y + 28)
                 with self.subTest(width=width, badge=variant):
                     self.assertGreaterEqual(x, 0, 'badge cannot protrude toward neighbouring card')
                     self.assertLessEqual(x + badge_width, width)
                     self.assertFalse(overlap(cost, badge), 'rule marker cannot cover energy chip')
-                    # A maximum of 9px of a 152px-tall hand illustration
-                    # can be covered; on compact board cards none is.
+                    self.assertLessEqual(cost_y, 2, 'energy must remain at the top-left corner')
                     self.assertGreaterEqual(y, 0)
                     self.assertLessEqual(y + badge_height, width * 603 / 388)
 
