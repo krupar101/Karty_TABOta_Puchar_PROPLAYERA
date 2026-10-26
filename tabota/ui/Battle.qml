@@ -85,6 +85,8 @@ Item {
                         Item {
                             required property int index
                             property var unit: lane.laneInfo.enemyUnits[index] || null
+                            // Occupied slots cover empty slots; later cards still cover earlier ones.
+                            z: unit ? 1 : 0
                             width: lane.laneInfo.capacity === 5 ? 52 : 67; height: 104
                             Rectangle { anchors.fill: parent; radius: 4; color: "#100c17"; border.color: "#302137"; Text { anchors.centerIn: parent; text: "+"; color: "#403049"; font.pixelSize: 18 } }
                             Card { anchors.horizontalCenter: parent.horizontalCenter; width: parent.width; visible: !!parent.unit; info: parent.unit || {}; battle: true; onTable: true; lift: false; onClicked: api.inspect(info.id)
@@ -107,6 +109,8 @@ Item {
                         Item {
                             required property int index
                             property var unit: lane.laneInfo.playerUnits[index] || null
+                            // Occupied slots cover empty slots; later cards still cover earlier ones.
+                            z: unit ? 1 : 0
                             width: lane.laneInfo.capacity === 5 ? 52 : 67; height: 104
                             Rectangle { anchors.fill: parent; radius: 4; color: lane.dropLegal ? "#30203d" : "#100c17"; border.color: lane.dropLegal ? "#8f7945" : "#302137"; Text { anchors.centerIn: parent; text: lane.dropLegal ? "↓" : "+"; color: lane.dropLegal ? Theme.gold : "#403049"; font.pixelSize: 20 } }
                             Card { anchors.horizontalCenter: parent.horizontalCenter; width: parent.width; visible: !!parent.unit; info: parent.unit || {}; battle: true; onTable: true; lift: false; splitClickDetails: false; onClicked: api.inspect(info.id) }

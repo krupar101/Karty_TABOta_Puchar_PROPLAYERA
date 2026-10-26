@@ -139,9 +139,8 @@ Item {
             visible: card.battle && card.faceUp && card.info.kind !== "token" && card.info.cost !== undefined
             objectName: "tabotaEnergyBadge"
             x: -5
-            // Keep the original chip size at the top-left. Lift it above the
-            // edge only when a wide rule badge would otherwise overlap it.
-            y: card.onTable && ruleNameBadge.visible && ruleNameBadge.x < 40 ? -28 : -7
+            // Energy stays at the same height regardless of the rule label.
+            y: -7
             width: 43; height: 28; radius: 14
             color: "#322046"; border.color: Theme.purple; border.width: 2
             Row {
@@ -170,7 +169,9 @@ Item {
             width: compact ? (card.info.nameRuleBadge === "A" ? 19 : 39)
                            : (card.info.nameRuleBadge === "A" ? 25 : 48)
             height: compact ? 14 : 17
-            x: parent.width - width - (compact ? 1 : 0)
+            // Leave room for energy; long labels may extend beyond the right edge.
+            x: card.onTable ? Math.max(40, parent.width - width - (compact ? 1 : 0))
+                            : parent.width - width - (compact ? 1 : 0)
             y: card.onTable ? 2 : (compact ? -22 : -8)
             radius: height / 2
             color: card.info.nameRuleBadge === "A" ? "#3f294f" : "#254235"
