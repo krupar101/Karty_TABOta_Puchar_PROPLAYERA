@@ -28,7 +28,7 @@ class FadeAndCardRoleContracts(unittest.TestCase):
         self.assertLess(overlay_start, mouse_start)
         self.assertIn('objectName: "tabotaCardMotion"', self.card)
         self.assertIn('objectName: "tabotaInspectAffordance"', self.card)
-        self.assertIn('opacity: card.pointerHover && !card.moving ? 1 : 0', self.card)
+        self.assertIn('opacity: card.lowerHalfHovered && !card.moving ? 1 : 0', self.card)
         self.assertIn('card.splitClickDetails && event.y >= card.height/2', self.card)
         self.assertIn('splitClickDetails: !b.mulligan && !b.choice', self.battle)
 

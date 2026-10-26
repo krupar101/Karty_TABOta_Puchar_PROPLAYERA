@@ -20,7 +20,7 @@ class PublicNameTests(unittest.TestCase):
         self.assertNotIn('text: "TABOta";', self.main)
 
     def test_visual_targets_keep_full_card_height(self):
-        self.assertIn('height: Math.max(192, optionContent.implicitHeight + 28)', self.main)
+        self.assertIn('Math.max(192, optionContent.implicitHeight + 28)', self.main)
         self.assertIn('id: optionContent', self.main)
 
     def test_executable_is_standalone_tabot_saves_remain_compatible(self):

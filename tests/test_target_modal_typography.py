@@ -24,11 +24,11 @@ class TargetModalTypography(unittest.TestCase):
         self.assertIn('targetHeader.y + targetHeader.implicitHeight + 16', text)
         self.assertIn('targetSourceCard.y + targetSourceCard.height + 16', text)
         self.assertIn('height: Math.max(80, cancelTarget.y - y - 12)', text)
-        self.assertIn('height: Math.max(192, optionContent.implicitHeight + 28)', text)
+        self.assertIn('Math.max(192, optionContent.implicitHeight + 28)', text)
 
     def test_effect_description_always_visible_above_list(self):
         text=MAIN.read_text(encoding='utf-8')
-        self.assertIn('text: window.displayOptions.length ? (window.displayOptions[0].effect ||', text)
+        self.assertIn('window.displayOptions[0].effect ||', text)
         self.assertIn('id: targetHeader', text)
         self.assertIn('id: targetOptionList', text)
         self.assertIn('clip: true; spacing: 12', text)

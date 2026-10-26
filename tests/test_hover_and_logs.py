@@ -23,9 +23,9 @@ class HoverAndLogTests(unittest.TestCase):
         self.assertNotIn('dragInfo:', self.battle)
         self.assertNotIn('visible: table.dragActive', self.battle)
 
-    def test_inspection_overlay_fades_on_whole_card_hover_not_lower_only(self):
+    def test_inspection_overlay_fades_on_details_hover(self):
         self.assertIn('id: inspectAffordance', self.card)
-        self.assertIn('opacity: card.pointerHover && !card.moving ? 1 : 0', self.card)
+        self.assertIn('opacity: card.lowerHalfHovered && !card.moving ? 1 : 0', self.card)
         self.assertIn('Behavior on opacity', self.card)
         self.assertNotIn('visible: (card.lowerHalfHovered', self.card)
         self.assertIn('card.splitClickDetails && event.y >= card.height/2', self.card)

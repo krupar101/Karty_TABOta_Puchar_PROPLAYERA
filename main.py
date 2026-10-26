@@ -15,7 +15,7 @@ def main():
     if args.software: os.environ["QT_QUICK_BACKEND"] = "software"
     os.environ.setdefault("QT_QUICK_CONTROLS_STYLE", "Basic")
     from PySide6.QtCore import QTimer, QUrl, QCoreApplication, QEvent
-    from PySide6.QtGui import QIcon, QPalette, QColor
+    from PySide6.QtGui import QIcon, QPalette, QColor, QFont, QFontDatabase
     from PySide6.QtWidgets import QApplication
     from PySide6.QtQml import QQmlApplicationEngine
     from PySide6.QtQuick import QQuickWindow  # Register the concrete root-window wrapper.
@@ -23,8 +23,13 @@ def main():
     from tabota.bridge import Bridge
     app = QApplication(sys.argv[:1])
     app.setApplicationName("Karty TABOta")
-    app.setOrganizationName("TABOta")
-    app.setWindowIcon(QIcon(str(ROOT/"karty-rewers.png")))
+    app.setOrganizationName("TABOt")
+    for font_file in (ROOT / "tabota/ui/fonts").glob("*.ttf"):
+        QFontDatabase.addApplicationFont(str(font_file))
+    font = QFont()
+    font.setFamilies(["Noto Sans", "Noto Sans Symbols 2"])
+    app.setFont(font)
+    app.setWindowIcon(QIcon(str(ROOT/"ikona.png")))
     palette = QPalette()
     palette.setColor(QPalette.Window, QColor("#171122"))
     palette.setColor(QPalette.WindowText, QColor("#f8f2ff"))

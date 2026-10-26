@@ -13,6 +13,11 @@ Item {
     property var liveBoard: api.battleBoard
     property var b: liveBoard && liveBoard.lanes ? liveBoard : lastBoard
     onLiveBoardChanged: if (liveBoard && liveBoard.lanes) lastBoard = liveBoard
+    property bool ritualPrompted: false
+    Timer {
+        interval: 250; running: b.ritual && !table.ritualPrompted && !s.busy && !b.rulePending && !b.mulligan
+        onTriggered: { table.ritualPrompted = true; api.ritual("all") }
+    }
     property bool showLog: false
     property bool displayedLog: false
     onShowLogChanged: logFade.restart()
@@ -104,7 +109,11 @@ Item {
                         }
                     }
                 }
-                Text { x: 15; y: 344; text: "ZNACZNIKI: ✦ " + laneInfo.points + " / ✦ " + laneInfo.enemyPoints; color: Theme.muted; font.pixelSize: 8; font.letterSpacing: 1 }
+                Text { x: 15; y: 344; text: "Stałe bonusy (ty / rywal): " + laneInfo.points + " / " + laneInfo.enemyPoints; color: Theme.gold; font.pixelSize: 11
+                    MouseArea { id: bonusHover; anchors.fill: parent; hoverEnabled: true }
+                    ToolTip.visible: bonusHover.containsMouse
+                    ToolTip.text: laneInfo.pointHint
+                }
                 MouseArea { x: 0; y: 174; width: parent.width; height: 50; cursorShape: lane.laneInfo.legal ? Qt.PointingHandCursor : Qt.ArrowCursor; onClicked: api.chooseLane(lane.index) }
             }
         }
@@ -115,7 +124,7 @@ Item {
         color: Theme.panel; border.color: b.mulligan ? Theme.line : Theme.purple
         Row {
             x: 15; anchors.verticalCenter: parent.verticalCenter; spacing: 9
-            Text { text: "⚡"; color: Theme.gold; font.pixelSize: 23; font.bold: true; anchors.verticalCenter: parent.verticalCenter }
+            EnergyIcon { width: 18; height: 25; anchors.verticalCenter: parent.verticalCenter }
             Text { text: "TWOJA ENERGIA"; color: Theme.white; font.pixelSize: 12; font.bold: true; anchors.verticalCenter: parent.verticalCenter }
             Rectangle { width: 1; height: 22; color: Theme.line; anchors.verticalCenter: parent.verticalCenter }
             Repeater {
@@ -125,7 +134,7 @@ Item {
                     width: 25; height: 25; radius: 13
                     color: index < b.energy ? Theme.gold : "#2b2038"
                     border.color: index < b.energy ? Theme.gold : Theme.line
-                    Text { anchors.centerIn: parent; text: "⚡"; color: index < b.energy ? Theme.ink : Theme.muted; font.pixelSize: 13 }
+                    EnergyIcon { anchors.centerIn: parent; width: 12; height: 17; color: index < b.energy ? Theme.ink : Theme.muted }
                 }
             }
             Text {
@@ -134,7 +143,7 @@ Item {
                 anchors.verticalCenter: parent.verticalCenter
             }
         }
-        Text {
+        Text { font.family: "Noto Sans Symbols 2";
             anchors.right: parent.right; anchors.rightMargin: 16
             anchors.verticalCenter: parent.verticalCenter
             text: b.mulligan ? "Na początku możesz wymienić karty" : "⚡ to koszt zagrania karty"
@@ -177,7 +186,7 @@ Item {
                         width: handSlot.width; info: handSlot.handInfo; battle: true
                         dragCoordinateSpace: table
                         splitClickDetails: !b.mulligan && !b.choice
-                        showTip: false
+                        showTip: true
                         chosen: (table.dragActive && table.dragUid === handSlot.handInfo.uid) ||
                                 handSlot.handInfo.selected || handSlot.handInfo.exchange ||
                                 (b.tutorialGuided && b.tutorialPhase === "card" && handSlot.handInfo.uid === b.tutorialTargetUid)
@@ -317,7 +326,7 @@ Item {
         open: (b.tutorialGuided || b.tutorialPractice) && !s.busy && !b.finished &&
               !table.practiceAcknowledged && !exchangePanel.visible && !ruleWindow.visible
         x: 338; y: b.tutorialPhase === "card" ? 375 : 4
-        width: 646; height: b.tutorialPractice ? 112 : 100
+        width: 646; height: b.tutorialPractice ? 150 : 140
         // Guided steps move between the hand and the board without jumping.
         Behavior on y { NumberAnimation { duration: s.settings.reduced ? 20 : 170; easing.type: Easing.InOutQuad } }
         Behavior on height { NumberAnimation { duration: s.settings.reduced ? 20 : 150; easing.type: Easing.InOutQuad } }
@@ -331,12 +340,18 @@ Item {
         }
         Text {
             x: 18; y: 39; width: 604; wrapMode: Text.WordWrap
-            text: b.tutorialGuided ? b.hint : "Masz już podstawy. Od tury 4 możesz sam wybierać dowolne dozwolone karty i strefy. Spróbuj wygrać 2 z 3 stref."
+            text: b.tutorialGuided ? b.hint : "Masz już podstawy. Od tury 4 możesz sam wybierać dowolne dozwolone karty i strefy. Wygraj 2 z 3 stref. Przy remisie stref decyduje suma punktów na stole."
             color: Theme.white; font.pixelSize: 15
+        }
+        Text {
+            x: 18; y: 91; width: 604; wrapMode: Text.WordWrap
+            visible: b.tutorialGuided
+            text: "Cel: wygraj 2 pola. Przy remisie pól decyduje suma punktów na stole."
+            color: Theme.gold; font.pixelSize: 13
         }
         BButton {
             visible: b.tutorialPractice
-            x: 480; y: 79; width: 144; height: 28; compact: true
+            x: 480; y: 115; width: 144; height: 28; compact: true
             text: "Rozumiem"
             onClicked: table.practiceAcknowledged = true
         }

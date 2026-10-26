@@ -7,7 +7,7 @@ import sys
 import time
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from tabota.engine import Match, ai_plan, draft_offer, auto_deck
+from tabota.engine import Match, ai_plan, campaign_difficulty, draft_offer, auto_deck
 from tabota.content import CARDS, ENCOUNTERS
 
 parser=argparse.ArgumentParser()
@@ -31,7 +31,7 @@ for mission in args.missions:
             decks = None
             enemy_level = args.difficulty
             if args.mode == "campaign":
-                enemy_level = "hard" if hard else "easy" if mission <= 2 else "normal"
+                enemy_level = campaign_difficulty(mission, hard)
                 if hard:
                     pool = [c for c in CARDS if CARDS[c]["kind"] != "token"]
                     decks = [auto_deck(draft_offer(pool, seed)), ENCOUNTERS[mission-1]["enemyDeck"]]

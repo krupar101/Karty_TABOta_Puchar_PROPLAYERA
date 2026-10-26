@@ -23,9 +23,22 @@ INTRO = {"Odpowiedź": "Potraktuj ten symbol jako zaproszenie: ", "Przeszłość
 def data_directory():
     override = os.environ.get("TABOTA_DATA_DIR")
     if override: return Path(override)
-    if sys.platform == "win32": return Path(os.environ.get("LOCALAPPDATA", Path.home() / "AppData/Local")) / "TABOta"
-    if sys.platform == "darwin": return Path.home() / "Library/Application Support/TABOta"
-    return Path(os.environ.get("XDG_DATA_HOME", Path.home() / ".local/share")) / "tabota"
+    if sys.platform == "win32":
+        base, old_name = Path(os.environ.get("LOCALAPPDATA", Path.home() / "AppData/Local")), "TABOta"
+    elif sys.platform == "darwin":
+        base, old_name = Path.home() / "Library/Application Support", "TABOta"
+    else:
+        base, old_name = Path(os.environ.get("XDG_DATA_HOME", Path.home() / ".local/share")), "tabota"
+    destination, legacy = base / "Tabot", base / old_name
+    if not destination.exists() and legacy.is_dir():
+        # Copy atomically; retain the original as a recovery copy.
+        temporary = base / ("Tabot-migration-" + uuid.uuid4().hex)
+        try:
+            shutil.copytree(legacy, temporary)
+            temporary.rename(destination)
+        finally:
+            if temporary.exists(): shutil.rmtree(temporary)
+    return destination
 
 
 def stamp():
@@ -51,6 +64,10 @@ def validate_match(s):
     if type(s.get("serial")) is not int or s["serial"] < 0: raise ValueError("Niepoprawny licznik instancji.")
     for k in ["deck", "hand", "discard", "board", "points", "hymn", "nextBuff", "energy", "mulligan"]:
         if not isinstance(s.get(k), list) or len(s[k]) != 2: raise ValueError(f"Niepoprawny stan: {k}.")
+    if "initialDecks" in s:
+        decks = s["initialDecks"]
+        if not isinstance(decks, list) or len(decks) != 2 or any(not isinstance(d, list) or any(not isinstance(c, str) or c not in CARDS for c in d) or validate_deck(d) for d in decks):
+            raise ValueError("Niepoprawne talie początkowe.")
     seen = set()
     for p in range(2):
         if any(not isinstance(s[k][p],list) for k in ["deck","hand","discard","board","points","hymn","nextBuff"]): raise ValueError("Niepoprawny stan gracza.")

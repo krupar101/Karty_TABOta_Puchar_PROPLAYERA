@@ -12,7 +12,7 @@ from PySide6.QtCore import QObject, Property, Signal, Slot, QUrl, QTimer, QRunna
 from PySide6.QtWidgets import QFileDialog
 
 from .content import ROOT, CARDS, ENCOUNTERS, LANES, ACTS, STARTER, FORTUNES, validate_deck, encounter_rule
-from .engine import Match, IllegalMove, ai_plan, prepare_turn, draft_offer, auto_deck, definition
+from .engine import campaign_difficulty, Match, IllegalMove, ai_plan, prepare_turn, draft_offer, auto_deck, definition
 from .storage import Storage, make_reading, new_profile, stamp, SCHEMA
 
 
@@ -166,9 +166,9 @@ class Bridge(QObject):
     def action_effect(self, action, match=None):
         if "special" in action:
             return {
-                "hymn": "Rytuał Hymn: dodaj punkty do wybranej strefy.",
+                "hymn": f"Rytuał Hymn: dodaj +{5 if (match or self.match).s['mission'] == 13 else 3} punkty do wybranej strefy. Punkty zostają nawet bez kart.",
                 "ban": "Rytuał Ban: wycisz wybraną kartę przeciwnika. Jej Aura i Finał przestają działać.",
-                "clip": "Rytuał Klip: dobierz dodatkowe karty na przyszłą turę.",
+                "clip": "Rytuał Klip: dobierz 2 karty na przyszłą turę (limit ręki: 10).",
                 "flight": "Darmowy lot: przenieś wybraną własną kartę do innej strefy z wolnym miejscem.",
             }[action["special"]]
         unit, _ = self.locate_uid(action.get("uid", ""), match)
@@ -249,6 +249,7 @@ class Bridge(QObject):
                     playerUnits=[self.card(u["card"], u, projected) for u in projected.units(0, lane)],
                     enemyUnits=[self.card(u["card"], u, projected) for u in projected.units(1, lane)],
                     points=m.s["points"][0][lane], enemyPoints=m.s["points"][1][lane],
+                    pointHint="\n".join(label + ": " + (", ".join(m.s["flags"].get("pointSources", {}).get(f"{p}:{lane}", [])) or "bonusy zapisane wcześniej / brak") for p, label in enumerate(["Ty", "Rywal"])) + "\nStałe punkty pozostają także po usunięciu kart.",
                     legal=bool(self.selected and projected.candidates(0, self.selected, lane))))
             hand = []
             for u in m.s["hand"][0]:
@@ -494,6 +495,13 @@ class Bridge(QObject):
                 self.store.profile["plan"] = []
                 self.safe_save()
                 self.screen = "map"
+            elif pending[0] == "discardChoice":
+                try: self.match.discard_choice(pending[1])
+                except IllegalMove as e: return self.fail(e)
+                self.soundRequested.emit("card")
+                self.finish_turn()
+                self.safe_save()
+            elif pending[0] == "restartMatch": self.restart_match()
             elif pending[0] == "replaceMatch": self.begin_match(pending[1])
             elif pending[0] == "import": self.do_import(pending[1], pending[2])
         self.refresh()
@@ -581,6 +589,34 @@ class Bridge(QObject):
         self.soundRequested.emit("start")
         self.refresh()
 
+    @Slot()
+    def restartMatch(self):
+        if not self.match or self.busy: return
+        self.pending = ("restartMatch",)
+        self.confirmation = "Zrestartować mecz z tymi samymi taliami? Bieżący plan i wynik zostaną wyzerowane."
+        self.refresh()
+
+    def restart_match(self):
+        old = self.match.s
+        decks = old.get("initialDecks")
+        if not decks:
+            # Older saves: recover original cards from every zone; omit tokens.
+            decks = []
+            for p in range(2):
+                units = old["hand"][p] + old["discard"][p] + sum(old["board"][p], [])
+                decks.append(old["deck"][p][:] + [u["card"] for u in units if CARDS[u["card"]]["kind"] != "token"])
+        self.match = Match(old["mission"], old["hard"], old["seed"], decks, old["tutorial"])
+        self.match.s["mode"] = old.get("mode", "story")
+        self.match.s["flags"]["ruleBriefingSeen"] = False
+        if old["tutorial"]: self.match.s["mulligan"] = [True, True]
+        else: self.match.mulligan(1, [])
+        self.plan, self.options, self.mulligan_ids = [], [], []
+        self.selected, self.detail = "", ""
+        self.saved_result, self.display_match = False, None
+        self.dialogue_seen = set()
+        self.screen = "battle"
+        self.safe_save()
+
     def rule_pending(self):
         return bool(self.match and not self.match.s["tutorial"] and self.match.s["flags"].get("ruleBriefingSeen", True) is False)
 
@@ -597,11 +633,10 @@ class Bridge(QObject):
         if self.rule_pending(): return
         if self.busy or not self.match or self.match.s["finished"]: return
         if self.match.s["choices"]:
-            try: self.match.discard_choice(uid)
-            except IllegalMove as e: return self.fail(e)
-            self.soundRequested.emit("card")
-            self.finish_turn()
-            self.safe_save()
+            card = next((u for u in self.match.s["hand"][0] if u["uid"] == uid), None)
+            if not card: return
+            self.pending = ("discardChoice", uid)
+            self.confirmation = "Odrzucić kartę „" + CARDS[card["card"]]["name"] + "”?"
             return self.refresh()
         if not self.match.s["mulligan"][0]:
             if uid in self.mulligan_ids: self.mulligan_ids.remove(uid)
@@ -661,7 +696,7 @@ class Bridge(QObject):
         projected = self.match.project(0, self.plan)
         self.options = projected.candidates(0, self.selected, lane)
         if not self.options: return self.fail("Nie można zagrać tu tej karty: sprawdź Energię, wolne sloty i wymagany cel.")
-        if len(self.options) == 1: return self.chooseOption(0)
+        if len(self.options) == 1 and not self.options[0].get("targets") and not self.options[0].get("zones") and "special" not in self.options[0]: return self.chooseOption(0)
         self.refresh_battle(projected)
         self.refresh_options(projected)
 
@@ -691,10 +726,17 @@ class Bridge(QObject):
         if self.rule_pending(): return
         if self.busy or not self.match: return
         projected = self.match.project(0, self.plan)
-        self.options = projected.flight_options(0) if kind == "flight" else [a for a in projected.ritual_options(0) if a["special"] == kind]
+        self.options = projected.flight_options(0) if kind == "flight" else [a for a in projected.ritual_options(0) if kind == "all" or a["special"] == kind]
+        if kind == "all":
+            # Present each ritual kind before the remaining lane/target variants.
+            first, remaining, seen = [], [], set()
+            for action in self.options:
+                (remaining if action["special"] in seen else first).append(action)
+                seen.add(action["special"])
+            self.options = first + remaining
         if not self.options: return self.fail("Ta akcja nie ma teraz legalnego celu.")
         if kind == "clip": self.notice = "Dociąg nastąpi przy ujawnieniu. Nowe karty będą dostępne do planowania w następnej turze; limit ręki: 10."
-        if len(self.options) == 1: return self.chooseOption(0)
+        if len(self.options) == 1 and not self.options[0].get("targets") and not self.options[0].get("zones") and "special" not in self.options[0]: return self.chooseOption(0)
         self.refresh()
 
     @Slot()
@@ -730,7 +772,7 @@ class Bridge(QObject):
         self.soundRequested.emit("turn")
         self.selected, self.options = "", []
         self.refresh()
-        self.worker = Thinker(self.match, "hard" if self.hard else ("easy" if self.mission <= 2 and not self.free else self.difficulty), self.plan)
+        self.worker = Thinker(self.match, campaign_difficulty(self.mission, self.hard, self.difficulty, self.free), self.plan)
         self.worker.signals.done.connect(self.resolve)
         self.worker.signals.error.connect(self.fail)
         QThreadPool.globalInstance().start(self.worker)
@@ -848,7 +890,7 @@ class Bridge(QObject):
             return f"Znajdź w ręce podświetloną kartę «{card['name']}» (⚡ {card['cost']}) i kliknij ją."
         if self.match.s["turn"] == 4:
             return "Teraz grasz samodzielnie! Wybieraj karty i strefy, aby wygrać co najmniej 2 strefy. Możesz cofać ruchy."
-        return "Sam decydujesz, które karty zagrać. Pamiętaj: 2 wygrane strefy są ważniejsze niż suma punktów."
+        return "Sam decydujesz, które karty zagrać. Pamiętaj: wygrywasz 2 strefami; przy remisie stref decyduje suma punktów na stole."
 
     @Slot(bool)
     def openDraft(self, reuse=False):

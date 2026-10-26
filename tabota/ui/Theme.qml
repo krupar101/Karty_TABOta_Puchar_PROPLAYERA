@@ -12,5 +12,5 @@ QtObject {
     readonly property color muted: "#bbabc8"
     readonly property color green: "#99dfbc"
     readonly property color red: "#ff9b98"
-    readonly property string font: "sans-serif"
+    readonly property string font: "Noto Sans"
 }

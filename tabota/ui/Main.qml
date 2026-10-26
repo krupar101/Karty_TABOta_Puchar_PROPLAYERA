@@ -126,7 +126,7 @@ ApplicationWindow {
                 Column { width: 480; spacing: 24
                     y: 40
                     Heading { width: parent.width; eyebrow: window.displayDetailTarot ? "Oryginalne karty TABOta" : "Katalog / " + window.displayDetail.id; title: window.displayDetail.name || "" }
-                    Text { visible: !window.displayDetailTarot; text: "⚡ KOSZT " + window.displayDetail.cost + (window.displayDetail.kind === "event" ? "" : "     ✦ MOC " + window.displayDetail.power) + "    /    " + window.displayDetail.tag; color: Theme.gold; font.pixelSize: 18; font.bold: true }
+                    Text { font.family: "Noto Sans Symbols 2"; visible: !window.displayDetailTarot; text: "⚡ KOSZT " + window.displayDetail.cost + (window.displayDetail.kind === "event" ? "" : "     ✦ MOC " + window.displayDetail.power) + "    /    " + window.displayDetail.tag; color: Theme.gold; font.pixelSize: 18; font.bold: true }
                     Text { width: parent.width; text: window.displayDetailTarot ? window.displayDetail.fortune || "" : window.displayDetail.description || ""; color: Theme.white; wrapMode: Text.WordWrap; font.pixelSize: 21; lineHeight: 1.4 }
                     Text { visible: !!window.displayDetail.nameRuleHint; width: parent.width; text: window.displayDetail.nameRuleHint || ""; color: Theme.gold; font.pixelSize: 15; wrapMode: Text.WordWrap; lineHeight: 1.3 }
                     Text { width: parent.width; text: window.displayDetailTarot ? "Autorskie dopowiedzenie do symbolu. Oryginalny cytat i słowa-klucze znajdziesz na ilustracji." : window.displayDetail.source || ""; color: Theme.muted; font.pixelSize: 14; wrapMode: Text.WordWrap; lineHeight: 1.4 }
@@ -136,12 +136,14 @@ ApplicationWindow {
         }
         FadeBox {
             objectName: "tabotaTargetDialog"
+            onOpenChanged: targetPanel.selectedOption = -1
             fadeDuration: window.s.settings.reduced ? 35 : 150
             anchors.fill: parent; color: "#d9090612"; z: 350
             open: window.s.options.length > 0 && window.s.confirmation === ""
             MouseArea { anchors.fill: parent; onClicked: api.cancelOptions() }
             Rectangle {
                 id: targetPanel
+                property int selectedOption: -1
                 objectName: "tabotaTargetPanel"
                 anchors.centerIn: parent
                 width: 1080; height: 690; radius: 16
@@ -160,13 +162,13 @@ ApplicationWindow {
                         font.letterSpacing: 3
                     }
                     Text {
-                        width: parent.width; text: "Wybierz cel efektu"
+                        width: parent.width; text: window.displayOptions.length && window.displayOptions[0].sourceTitle.startsWith("Rytuał") ? "Wybierz rytuał i cel" : "Wybierz cel efektu"
                         color: Theme.white; font.pixelSize: 32; font.bold: true
                         wrapMode: Text.WordWrap
                     }
                     Text {
                         width: parent.width
-                        text: window.displayOptions.length ? (window.displayOptions[0].effect || "Wskaż kartę, na którą zadziała efekt.") : ""
+                        text: window.displayOptions.length ? (window.displayOptions[0].sourceTitle.startsWith("Rytuał") ? "Wybierz jeden rytuał. Każda opcja poniżej ma opis działania i cel." : window.displayOptions[0].effect || "Wskaż kartę, na którą zadziała efekt.") : ""
                         color: Theme.muted; font.pixelSize: 14; wrapMode: Text.WordWrap
                         lineHeight: 1.2
                     }
@@ -178,7 +180,7 @@ ApplicationWindow {
                     }
                     Text {
                         width: parent.width
-                        text: "Kliknij kartę celu poniżej. Złota ramka pokazuje, na co zadziała efekt."
+                        text: "Wybierz opcję, a następnie kliknij „Zatwierdź wybór” na dole okna."
                         color: Theme.muted; font.pixelSize: 12; wrapMode: Text.WordWrap
                     }
                 }
@@ -208,10 +210,10 @@ ApplicationWindow {
                         id: optionTile
                         objectName: "tabotaTargetOption"
                         required property var modelData
-                        width: 996; height: Math.max(192, optionContent.implicitHeight + 28); radius: 14
+                        width: 996; height: modelData.source && modelData.source.id ? Math.max(192, optionContent.implicitHeight + 28) : optionContent.implicitHeight + 28; radius: 14
                         color: optionMouse.containsMouse ? Theme.panel2 : Theme.panel
                         border.width: 2
-                        border.color: optionMouse.containsMouse ? Theme.gold : Theme.line
+                        border.color: targetPanel.selectedOption === modelData.index ? Theme.gold : Theme.line
                         Column {
                             id: optionContent
                             x: 16; y: 14; width: 964; spacing: 10
@@ -220,7 +222,7 @@ ApplicationWindow {
                                 Rectangle {
                                     width: sideLabel.implicitWidth + 20; height: 28; radius: 14
                                     color: "#2b2038"; border.color: Theme.gold
-                                    Text { id: sideLabel; anchors.centerIn: parent; text: modelData.targetSideLabel || "CEL"; color: Theme.white; font.pixelSize: 11; font.bold: true }
+                                    Text { id: sideLabel; anchors.centerIn: parent; text: modelData.sourceTitle.startsWith("Rytuał") ? modelData.sourceTitle : modelData.targetSideLabel || "CEL"; color: Theme.white; font.pixelSize: 11; font.bold: true }
                                 }
                                 Text {
                                     width: 790
@@ -241,16 +243,16 @@ ApplicationWindow {
                                     }
                                 }
                                 Rectangle {
-                                    visible: !modelData.targets || modelData.targets.length === 0
+                                    visible: !!modelData.source.id && (!modelData.targets || modelData.targets.length === 0)
                                     width: 220; height: 95; radius: 10
                                     color: "#241b33"; border.color: Theme.line
                                     Text { anchors.centerIn: parent; width: 180; horizontalAlignment: Text.AlignHCenter; wrapMode: Text.WordWrap; text: modelData.emptyLabel || "Bez dodatkowego celu"; color: Theme.muted; font.pixelSize: 13 }
                                 }
                                 Column {
-                                    width: 360; spacing: 6
+                                    width: modelData.targets.length ? 360 : 850; spacing: 6
                                     Text { text: modelData.laneName ? "Strefa zagrania: " + modelData.laneName : ""; color: Theme.gold; font.pixelSize: 13; font.bold: true }
                                     Text { visible: !!modelData.secondaryText; text: modelData.secondaryText || ""; color: Theme.white; font.pixelSize: 13; wrapMode: Text.WordWrap }
-                                    Text { visible: !!modelData.label; text: modelData.label || ""; color: Theme.muted; font.pixelSize: 11; wrapMode: Text.WordWrap }
+                                    Text { width: parent.width; visible: !!modelData.label; text: (modelData.effect || "") + "\n" + (modelData.label || ""); color: Theme.muted; font.pixelSize: 14; wrapMode: Text.WordWrap }
                                 }
                             }
                         }
@@ -259,9 +261,16 @@ ApplicationWindow {
                             anchors.fill: parent
                             hoverEnabled: true
                             cursorShape: Qt.PointingHandCursor
-                            onClicked: api.chooseOption(modelData.index)
+                            onClicked: targetPanel.selectedOption = modelData.index
                         }
                     }
+                }
+                BButton {
+                    objectName: "tabotaConfirmTarget"
+                    x: 760; y: targetPanel.height - 52; width: 290; height: 36
+                    text: "Zatwierdź wybór"; primary: true
+                    enabled: targetPanel.selectedOption >= 0
+                    onClicked: api.chooseOption(targetPanel.selectedOption)
                 }
                 BButton {
                     id: cancelTarget

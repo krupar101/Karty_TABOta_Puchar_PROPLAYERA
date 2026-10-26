@@ -62,7 +62,7 @@ class MusicTests(unittest.TestCase):
         self.assertNotIn('hoverUid', battle)
         self.assertNotIn('hoverInfo', battle)
         self.assertNotIn('detailPreview', battle)
-        self.assertIn('opacity: card.pointerHover && !card.moving ? 1 : 0', card)
+        self.assertIn('opacity: card.lowerHalfHovered && !card.moving ? 1 : 0', card)
         self.assertIn('Behavior on opacity {', card)
         self.assertNotIn('visible: table.dragActive', battle)
         self.assertIn('table.dragX - table.dragOffsetX', battle)

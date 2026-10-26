@@ -45,7 +45,7 @@ Item {
     activeFocusOnTab: interactive
     Accessible.role: Accessible.Button
     Accessible.name: faceUp ? (info.name || "Karta") : "Zakryta karta"
-    Accessible.description: splitClickDetails ? "Górna połowa wybiera kartę, dolna pokazuje szczegóły. Klawisz I otwiera podgląd." : "Klawisz I pokazuje szczegóły karty."
+    Accessible.description: splitClickDetails ? "Górna połowa wybiera kartę, najechanie na dolną pokazuje szczegóły. Klawisz I otwiera podgląd." : "Klawisz I pokazuje szczegóły karty."
     Keys.onReturnPressed: if (interactive) clicked()
     Keys.onSpacePressed: if (interactive) clicked()
     Keys.onPressed: event => { if (event.key === Qt.Key_I && info.id && faceUp) { api.inspect(info.id); event.accepted = true } }
@@ -116,11 +116,10 @@ Item {
             visible: card.battle && card.faceUp && card.info.kind !== "token" && card.info.cost !== undefined
             x: -5; y: -7; width: 43; height: 28; radius: 14
             color: "#322046"; border.color: Theme.purple; border.width: 2
-            Text {
-                anchors.centerIn: parent
-                text: "⚡ " + card.info.cost
-                color: Theme.white; font.bold: true
-                font.pixelSize: card.width < 75 ? 11 : 13
+            Row {
+                anchors.centerIn: parent; spacing: 3
+                EnergyIcon { width: 10; height: 15; anchors.verticalCenter: parent.verticalCenter }
+                Text { text: card.info.cost === undefined ? "" : card.info.cost; color: Theme.white; font.bold: true; font.pixelSize: card.width < 75 ? 11 : 13 }
             }
         }
         Rectangle {
@@ -134,10 +133,7 @@ Item {
                 font.pixelSize: card.width < 75 ? 11 : 13
             }
         }
-        // The A / BEZ A rule is unique to challenge 03.  Keep this hint
-        // on the top-right EDGE, not across the illustrated card title.
-        // The battlefield uses tiny 52/67px cards: a compact tab lives
-        // above their cost chip, so the two never compete for space.
+        // The rule badge stays inside the card, below the energy chip.
         Rectangle {
             id: ruleNameBadge
             objectName: "tabotaNameRuleBadge"
@@ -147,7 +143,7 @@ Item {
                            : (card.info.nameRuleBadge === "A" ? 25 : 48)
             height: compact ? 14 : 17
             x: parent.width - width - (compact ? 1 : 0)
-            y: compact ? -22 : -8
+            y: 23
             radius: height / 2
             color: card.info.nameRuleBadge === "A" ? "#3f294f" : "#254235"
             border.color: card.info.nameRuleBadge === "A" ? Theme.gold : Theme.green
@@ -189,7 +185,7 @@ Item {
             // Shield remains separate from both the energy chip and the rule
             // badge. On compact cards it sits directly BELOW the top rail.
             x: parent.width - (card.width < 80 ? 15 : 21)
-            y: card.info.nameRuleBadge && card.width >= 80 ? 13 : -8
+            y: card.info.nameRuleBadge ? 43 : 23
             text: "◆"; color: Theme.green
             font.pixelSize: card.width < 80 ? 16 : 24
             style: Text.Outline; styleColor: Theme.ink
@@ -213,10 +209,9 @@ Item {
             id: inspectAffordance
             objectName: "tabotaInspectAffordance"
             // Follow motion so the affordance lifts, tilts and scales with the card.
-            // The whole-card hover reveals the affordance; only the click POSITION
-            // decides whether to inspect or select. This never steals pointer input.
+            // Only hovering the details area reveals the tooltip, without a modal.
             visible: card.splitClickDetails && card.interactive && card.faceUp && !card.exchangeMode
-            opacity: card.pointerHover && !card.moving ? 1 : 0
+            opacity: card.lowerHalfHovered && !card.moving ? 1 : 0
             Behavior on opacity {
                 NumberAnimation {
                     duration: api && api.state && api.state.settings && api.state.settings.reduced ? 40 : 200
@@ -264,9 +259,9 @@ Item {
         }
         onClicked: event => {
             if (draggedGesture) return
-            if ((event.button === Qt.RightButton || (card.splitClickDetails && event.y >= card.height/2)) && card.faceUp && card.info.id)
+            if (event.button === Qt.RightButton && card.faceUp && card.info.id)
                 api.inspect(card.info.id)
-            else if (event.button === Qt.LeftButton)
+            else if (event.button === Qt.LeftButton && !(card.splitClickDetails && event.y >= card.height/2))
                 card.clicked()
         }
         onReleased: event => {
@@ -278,10 +273,15 @@ Item {
         }
         onCanceled: if (draggedGesture) card.dragFinished()
     }
-    ToolTip.visible: card.showTip && card.hovered && card.faceUp && !!card.info.name && !card.moving
-    ToolTip.delay: 650
-    ToolTip.timeout: 7000
-    ToolTip.text: (card.info.name || "") + (card.battle ?
+    ToolTip {
+    id: detailsTip
+    objectName: "tabotaHoverDetails"
+    width: 370
+    contentItem: Text { text: detailsTip.text; color: Theme.white; font.pixelSize: 14; wrapMode: Text.WordWrap }
+    visible: card.showTip && (card.splitClickDetails ? card.lowerHalfHovered : card.hovered) && card.faceUp && !!card.info.name && !card.moving
+    delay: card.splitClickDetails ? 180 : 650
+    timeout: 7000
+    text: (card.info.name || "") + (card.battle ?
         "\n⚡ Energia do zagrania: " + (card.info.cost === undefined ? "-" : card.info.cost) +
         (card.info.kind === "event" ? "\nWydarzenie: nie daje Mocy na stole." :
         "\n✦ Moc: " + (card.info.currentPower === undefined ? card.info.power : card.info.currentPower) +
@@ -289,4 +289,5 @@ Item {
         (card.info.nameRuleHint ? "\n" + card.info.nameRuleHint : "") +
         (card.info.silenced ? "\n⛔ Wyciszona: Aura i Finał tej karty są wyłączone." : "") +
         "\n" + (card.info.description || "") : "\nPrawy przycisk lub I: pełna ilustracja")
+    }
 }

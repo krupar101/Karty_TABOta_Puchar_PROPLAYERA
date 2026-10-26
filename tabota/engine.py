@@ -21,6 +21,12 @@ def definition(unit):
     return CARDS[unit["card"]]
 
 
+def campaign_difficulty(mission, hard=False, selected="normal", free=False):
+    if hard: return "hard"
+    if free or selected != "normal": return selected
+    return ("beginner", "casual", "easy", "normal")[(mission - 1) // 5]
+
+
 class Match:
     def __init__(self, mission=1, hard=False, seed=1, decks=None, tutorial=False):
         encounter = ENCOUNTERS[mission-1]
@@ -30,7 +36,7 @@ class Match:
                 raise ValueError(validate_deck(deck))
         self.s = dict(version=1, mission=mission, hard=hard, seed=seed, turn=1,
             maxTurns=7 if mission == 16 else 6, energy=[1, 1],
-            deck=deepcopy(decks), hand=[[], []], discard=[[], []], board=[[[], [], []], [[], [], []]],
+            initialDecks=deepcopy(decks), deck=deepcopy(decks), hand=[[], []], discard=[[], []], board=[[[], [], []], [[], [], []]],
             points=[[0, 0, 0], [0, 0, 0]], hymn=[[False]*3, [False]*3], nextBuff=[[0]*3, [0]*3],
             flags={}, log=[], serial=0, winner=None, finished=False, mulligan=[False, False],
             tutorial=tutorial, choices=[], actions=[], rulesVersion="1.0.0")
@@ -180,6 +186,13 @@ class Match:
 
     def power(self, u):
         return max(0, definition(u)["power"] + u["buff"] + min(4, self.aura(u)))
+
+    def add_points(self, p, lane, amount, source):
+        self.s["points"][p][lane] += amount
+        ledger = self.s["flags"].setdefault("pointSources", {})
+        key = f"{p}:{lane}"
+        ledger.setdefault(key, []).append(f"{source}: {amount:+d}")
+        self.log(f"{'TABO' if p == 0 else 'RYWAL'} · {LANES[lane]} · {source}: {amount:+d} stałych punktów.")
 
     def scores(self):
         return [[self.s["points"][p][l] + sum(self.power(u) for u in self.units(p, l)) for l in range(3)] for p in range(2)]
@@ -372,7 +385,7 @@ class Match:
             if not self.once(f"ritual:{p}"): return
             self.log(f"{'TABO' if p == 0 else 'RYWAL'} · RYTUAŁ {kind.upper()}.")
             if kind == "hymn":
-                self.s["points"][p][lane] += 5 if self.s["mission"] == 13 else 3
+                self.add_points(p, lane, 5 if self.s["mission"] == 13 else 3, "Rytuał Hymn")
                 self.s["hymn"][p][lane] = True
             elif kind == "ban": self.silence(self.find(a["targets"][0]))
             elif kind == "clip": self.draw(p, 3 if self.s["mission"] == 13 and self.s["hard"] else 2)
@@ -466,7 +479,7 @@ class Match:
             self.s["flags"][f"ink:{p}:{self.s['turn']}"] = True
         elif cid == "E04": self.buff(t, 2 if t and t["card"] == "30" else 1)
         elif cid == "E11":
-            if any(definition(v)["tag"] == "Hymn" for v in self.units(p, lane)): self.s["points"][p][lane] += 2
+            if any(definition(v)["tag"] == "Hymn" for v in self.units(p, lane)): self.add_points(p, lane, 2, definition(u)["name"])
         elif cid == "E12":
             if t and definition(t)["kind"] == "token" and self.power(t) <= 2: self.remove(t)
             elif t: self.buff(t, -1, True)
@@ -475,7 +488,7 @@ class Match:
         elif cid == "E14":
             self.draw(p, 2)
             if not self.preview and self.s["hand"][p]: self.s["choices"].append(dict(owner=p, kind="discard"))
-        elif cid == "E15": self.s["points"][p][lane] += 3 if self.s["turn"] in [5, 6] else 1
+        elif cid == "E15": self.add_points(p, lane, 3 if self.s["turn"] in [5, 6] else 1, definition(u)["name"])
         elif cid == "E17":
             if t and definition(t)["power"] <= 4: self.move(t, a.get("dest", -1), True)
         elif cid == "E19":
@@ -484,12 +497,12 @@ class Match:
         elif cid == "E21":
             if t and definition(t)["power"] <= 3: self.remove(t)
         elif cid == "E22":
-            self.s["points"][p][1] += 2
+            self.add_points(p, 1, 2, definition(u)["name"])
             self.draw(p)
         elif cid == "E23": self.buff(t, 2 if t and definition(t)["tag"] == "Technika" else 1)
         elif cid == "E24":
             for l in a.get("zones", []):
-                if self.units(p, l): self.s["points"][p][l] += 2
+                if self.units(p, l): self.add_points(p, l, 2, definition(u)["name"])
 
     def on_rule_play(self, u, retro_hand):
         p, l = u["owner"], u["lane"]
@@ -518,7 +531,7 @@ class Match:
                 self.buff(self.find(self.s["flags"].get(f"lastA:{p}:{turn}")), -1)
             if mission == 6 and turn in ([2, 3, 5] if hard else [3, 5]):
                 lane = min(range(3), key=lambda l: len(self.units(p, l)))
-                if self.units(p, lane): self.s["points"][p][lane] += 1 if hard else 2
+                if self.units(p, lane): self.add_points(p, lane, 1 if hard else 2, "Reguła wyzwania 06")
             if mission == 9 and turn == 3:
                 lane = min([1, 0, 2], key=lambda l: self.scores()[p][l]) if hard else 1
                 self.token(p, lane, "T3")
@@ -531,7 +544,7 @@ class Match:
             scores = self.scores()
             if scores[0][2] != scores[1][2]:
                 p = 0 if scores[0][2] > scores[1][2] else 1
-                self.s["points"][p][2] += 1
+                self.add_points(p, 2, 1, "Audyt")
                 self.log(f"AUDYT: +1 na Zapleczu dla {'TABO' if p == 0 else 'RYWALA'}.")
 
     def finals(self):
@@ -544,7 +557,7 @@ class Match:
                     cid = u["card"]
                     if cid == "01":
                         for lane in range(3):
-                            if self.units(p, lane): self.s["points"][p][lane] += 1
+                            if self.units(p, lane): self.add_points(p, lane, 1, "Prorok Tabo - Finał")
                         self.log("Prorok Tabo · FINAŁ: +1 w każdej strefie z jednostką.")
                     elif cid == "16" and l == 2: self.buff(u, 1)
                     elif cid == "22" and u["played"] in [5, 6]: self.buff(u, 2)
@@ -556,7 +569,7 @@ class Match:
             for p in range(2):
                 for l in range(3):
                     n = len(self.units(p, l))
-                    self.s["points"][p][l] -= (3 if n >= 3 else 1 if n == 2 else 0) if self.s["hard"] else (2 if n >= 3 else 0)
+                    self.add_points(p, l, -((3 if n >= 3 else 1 if n == 2 else 0) if self.s["hard"] else (2 if n >= 3 else 0)), "Reguła wyzwania 19")
         scores = self.scores()
         ranking = [(self.wins(p), sum(scores[p])) for p in range(2)]
         self.s["winner"] = -1 if ranking[0] == ranking[1] else 0 if ranking[0] > ranking[1] else 1
@@ -665,7 +678,7 @@ def ai_plan(match, p=1, difficulty="normal"):
             a = max(scored, key=lambda x: x[0])[1]
             m.apply(p, a)
             base.append(a)
-    width = {"easy": 1, "normal": 2, "hard": 5}.get(difficulty, 2)
+    width = {"beginner": 1, "casual": 1, "easy": 1, "normal": 2, "hard": 5}.get(difficulty, 2)
     beam = [(evaluate(m, p), m, base)]
     best = beam[0]
     for _ in range(7):
@@ -679,9 +692,9 @@ def ai_plan(match, p=1, difficulty="normal"):
                 expanded.append((score, n, plan + [a]))
         if not expanded: break
         expanded.sort(key=lambda x: x[0], reverse=True)
-        if difficulty == "easy":
+        if difficulty in ("beginner", "casual", "easy"):
             rng = random.Random(match.s["seed"] + match.s["turn"]*37+p)
-            beam = [expanded[rng.randrange(min(3, len(expanded)))]]
+            beam = [expanded[rng.randrange(min({"beginner": 12, "casual": 6, "easy": 3}[difficulty], len(expanded)))]]
         else:
             beam, seen = [], set()
             for item in expanded:
@@ -690,7 +703,7 @@ def ai_plan(match, p=1, difficulty="normal"):
                     seen.add(signature)
                     beam.append(item)
                 if len(beam) == width: break
-        if beam[0][0] > best[0] or (not best[2] and beam[0][2]): best = beam[0]
+        if difficulty in ("beginner", "casual") or beam[0][0] > best[0] or (not best[2] and beam[0][2]): best = beam[0]
     return best[2]
 
 

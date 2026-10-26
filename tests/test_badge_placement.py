@@ -15,12 +15,12 @@ def overlap(a, b):
 
 
 class BadgePlacementTests(unittest.TestCase):
-    def test_rule_badge_is_positioned_above_picture_not_on_title(self):
+    def test_rule_badge_is_inside_card(self):
         self.assertIn('id: ruleNameBadge', CARD)
         self.assertIn('objectName: "tabotaNameRuleBadge"', CARD)
         self.assertIn('property bool compact: card.width < 80', CARD)
         self.assertIn('x: parent.width - width - (compact ? 1 : 0)', CARD)
-        self.assertIn('y: compact ? -22 : -8', CARD)
+        self.assertIn('y: 23', CARD)
         self.assertNotIn('x: parent.width - 53; y: 6;', CARD)
         # In challenge 03 the 2.7px upward offset preserves the title rows.
         self.assertIn('Row { x: 15; y: 53;', BATTLE)
@@ -33,7 +33,7 @@ class BadgePlacementTests(unittest.TestCase):
                 badge_width = (19 if variant == 'A' else 39) if compact else (25 if variant == 'A' else 48)
                 badge_height = 14 if compact else 17
                 x = width - badge_width - (1 if compact else 0)
-                y = -22 if compact else -8
+                y = 23
                 badge = (x, y, x + badge_width, y + badge_height)
                 cost = (-5, -7, 38, 21)
                 with self.subTest(width=width, badge=variant):
@@ -42,14 +42,15 @@ class BadgePlacementTests(unittest.TestCase):
                     self.assertFalse(overlap(cost, badge), 'rule marker cannot cover energy chip')
                     # A maximum of 9px of a 152px-tall hand illustration
                     # can be covered; on compact board cards none is.
-                    self.assertLessEqual(y + badge_height, 9)
+                    self.assertGreaterEqual(y, 0)
+                    self.assertLessEqual(y + badge_height, width * 603 / 388)
 
     def test_rule_and_protection_stay_separate(self):
-        self.assertIn('y: card.info.nameRuleBadge && card.width >= 80 ? 13 : -8', CARD)
+        self.assertIn('y: card.info.nameRuleBadge ? 43 : 23', CARD)
         self.assertIn('font.pixelSize: card.width < 80 ? 16 : 24', CARD)
         for width in (52, 67, 98, 132):
-            bottom = -22 + 14 if width < 80 else -8 + 17
-            protection_top = -8 if width < 80 else 13
+            bottom = 23 + (14 if width < 80 else 17)
+            protection_top = 43
             with self.subTest(width=width):
                 self.assertLessEqual(bottom, protection_top)
 

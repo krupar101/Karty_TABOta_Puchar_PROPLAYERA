@@ -21,3 +21,11 @@ if args.platform_output:
     command += ["--distpath", str(destination), "--workpath", str(root / "build" / target)]
 subprocess.run(command, cwd=root, check=True)
 print("Build ready in", destination)
+# Fail packaging immediately if assets required by the UI were omitted.
+bundle = destination / ('TABOt.app/Contents/Resources' if sys.platform == 'darwin' else 'TABOt/_internal')
+required = ['ikona.png', 'karty-rewers.png', 'Game_Design.md',
+            'tabota/ui/EnergyIcon.qml', 'tabota/ui/fonts/NotoSansSymbols2-Regular.ttf']
+missing = [name for name in required if not (bundle / name).is_file()]
+if missing:
+    raise RuntimeError('Missing packaged assets: ' + ', '.join(missing))
+print('Packaged icon, energy component, fonts and card assets verified.')

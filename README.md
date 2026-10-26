@@ -2,6 +2,9 @@
 
 Jednoosobowa gra karciana offline na Linuxa, Windowsa i macOS. Python + Qt Quick (PySide6), bez przeglądarki, konta, serwera i telemetrii. Wykorzystuje wszystkie dostarczone ilustracje oraz ten sam `karty-rewers.png` dla każdej zakrytej karty.
 
+Aktualne poprawki 12 zgłoszeń: [opis zmian i wyniki kontroli](docs/FIXES_2026-10-26.md).
+Starsze sekcje „Aktualizacja” poniżej są historią prac; bieżące zachowanie opisuje ten raport.
+
 ## Uruchomienie ze źródeł
 
 Potrzebujesz 64-bitowego Pythona 3.10–3.14. Do budowania zalecany Python 3.12. Otwórz terminal w katalogu projektu.
@@ -42,7 +45,7 @@ najeżdżanie na karty, przyciski, tasowanie, cofanie i rytuały.
 - Muzyka: 4 motywy ekranów, unikalny motyw każdej z 20 rozpraw i dwa dżingle wyniku; płynne przenikanie przy przełączaniu scen, niezależne suwaki muzyki i dźwięków w Opcjach.
 - Nie-tutorialowe rozprawy: modalny WARUNEK ROZPRAWY → jego potwierdzenie → wymiana kart → właściwa rozgrywka. Kolejność zapisywana razem z pojedynkiem.
 
-Sterowanie podczas pojedynku: **klik górnej połowy karty** → wybór → klik strefy → wybór celu. **Klik dolnej połowy** pokazuje szczegóły; po najechaniu na nią pojawia się półprzezroczysta nakładka. Przeciąganie jest alternatywą. Prawy klik lub `I` na karcie również otwiera powiększenie, `Tab` / `Shift+Tab` przechodzą po kontrolkach, `Enter` / `Spacja` aktywują, `Esc` zamyka podgląd lub otwiera pauzę, `F11` przełącza pełny ekran. Efekty dobierania nie pozwalają dopisywać ruchów do zatwierdzonego planu.
+Sterowanie podczas pojedynku: **klik górnej połowy karty** → wybór → klik strefy → wybór celu. **Najechanie na dolną połowę „SZCZEGÓŁY”** pokazuje opis bez kliknięcia i bez przebudowy planszy. Przeciąganie jest alternatywą. Prawy klik lub `I` na karcie również otwiera powiększenie, `Tab` / `Shift+Tab` przechodzą po kontrolkach, `Enter` / `Spacja` aktywują, `Esc` zamyka podgląd lub otwiera pauzę, `F11` przełącza pełny ekran. Efekty dobierania nie pozwalają dopisywać ruchów do zatwierdzonego planu.
 
 ## Ścieżka dźwiękowa
 
@@ -99,9 +102,11 @@ Testy rdzenia nie wymagają Qt ani ekranu. `check_ui.py` uruchamia rzeczywisty Q
 
 ## Zapisy i prywatność
 
-- Linux: `$XDG_DATA_HOME/tabota`, domyślnie `~/.local/share/tabota`.
-- Windows: `%LOCALAPPDATA%/TABOta`.
-- macOS: `~/Library/Application Support/TABOta`.
+- Linux: `$XDG_DATA_HOME/Tabot`, domyślnie `~/.local/share/Tabot`.
+- Windows: `%LOCALAPPDATA%/Tabot`.
+- macOS: `~/Library/Application Support/Tabot`.
+
+Dane ze starych folderów `tabota` / `TABOta` są kopiowane przy pierwszym uruchomieniu do `Tabot`; oryginał pozostaje kopią zapasową.
 
 `campaign.json`, `readings.json` i `settings.json` to oddzielne pliki. Zapis jest atomowy i zachowuje poprzednią wersję `.bak`. Gra próbuje odzyskać uszkodzony zapis z backupu i pokazuje ostrzeżenie. Nie zapisuje pytań w logu meczu. Opcje pozwalają eksportować/importować dane. Import historii scala wpisy po ID, import kampanii wymaga potwierdzenia zastąpienia slotów. `TABOTA_DATA_DIR` pozwala wskazać osobny katalog, np. do testów lub przenośnego zapisu.
 

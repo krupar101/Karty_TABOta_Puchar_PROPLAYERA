@@ -32,15 +32,16 @@ Item {
         }
     }
     Row {
-        x: 42; y: 742; spacing: 7; height: 120
-        opacity: backdrop.active ? .13 : 0
+        x: 42; y: 854; spacing: 7; height: 14
+        clip: true
+        opacity: backdrop.active ? .6 : 0
         Behavior on opacity { NumberAnimation { duration: api.state.settings.reduced ? 0 : 180 } }
         Repeater {
             model: 48
             Rectangle {
                 required property int index
                 property real level: backdrop.active ? backdrop.bands[index < 24 ? index : 47-index] : 0
-                width: 21; height: 2 + level * 115; radius: 2
+                width: 21; height: 2 + level * 12; radius: 2
                 anchors.bottom: parent.bottom
                 color: index%3 === 0 ? Theme.gold : Theme.purple
                 Behavior on height { NumberAnimation { duration: api.state.settings.reduced ? 0 : 100; easing.type: Easing.OutQuad } }

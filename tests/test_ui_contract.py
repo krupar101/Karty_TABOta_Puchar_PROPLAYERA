@@ -14,7 +14,7 @@ class UiContractTests(unittest.TestCase):
         cls.main = (UI / "Main.qml").read_text(encoding="utf-8")
 
     def test_card_cost_and_power_have_icons(self):
-        self.assertIn('text: "⚡ " + card.info.cost', self.card)
+        self.assertIn('EnergyIcon { width: 10; height: 15;', self.card)
         self.assertIn('text: "✦ " + (card.info.currentPower', self.card)
         self.assertIn('text: "⚡ KOSZT "', self.main)
         self.assertIn('text: "✦ " + lane.laneInfo.player', self.battle)
