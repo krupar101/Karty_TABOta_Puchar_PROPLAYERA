@@ -5,6 +5,7 @@ Item {
     id: card
     property var info: ({})
     property bool battle: false
+    property bool onTable: false
     property bool faceUp: true
     property bool chosen: false
     property bool exchangeMode: false
@@ -16,6 +17,17 @@ Item {
     // Only hand/placed battle cards use split click: upper half acts, lower half inspects.
     property bool splitClickDetails: false
     property bool lowerHalfHovered: splitClickDetails && mouse.containsMouse && mouse.mouseY >= height / 2 && !mouse.draggedGesture
+    property bool hoverInspectArmed: true
+    Timer {
+        interval: 300
+        running: card.lowerHalfHovered && card.hoverInspectArmed && card.interactive &&
+                 card.faceUp && !card.exchangeMode && !mouse.pressed && !card.moving &&
+                 !api.state.detail.id && !api.state.options.length && !api.state.confirmation && !api.state.busy
+        onTriggered: {
+            card.hoverInspectArmed = false
+            api.inspect(card.info.id)
+        }
+    }
     property bool dragEnabled: false
     // Coordinates of drag signals are local to this item, if assigned.
     property var dragCoordinateSpace: null
@@ -133,7 +145,7 @@ Item {
                 font.pixelSize: card.width < 75 ? 11 : 13
             }
         }
-        // The rule badge stays inside the card, below the energy chip.
+        // Only placed cards move the badge inside; preserve the original hand layout.
         Rectangle {
             id: ruleNameBadge
             objectName: "tabotaNameRuleBadge"
@@ -143,7 +155,7 @@ Item {
                            : (card.info.nameRuleBadge === "A" ? 25 : 48)
             height: compact ? 14 : 17
             x: parent.width - width - (compact ? 1 : 0)
-            y: 23
+            y: card.onTable ? 23 : (compact ? -22 : -8)
             radius: height / 2
             color: card.info.nameRuleBadge === "A" ? "#3f294f" : "#254235"
             border.color: card.info.nameRuleBadge === "A" ? Theme.gold : Theme.green
@@ -185,7 +197,7 @@ Item {
             // Shield remains separate from both the energy chip and the rule
             // badge. On compact cards it sits directly BELOW the top rail.
             x: parent.width - (card.width < 80 ? 15 : 21)
-            y: card.info.nameRuleBadge ? 43 : 23
+            y: card.onTable ? (card.info.nameRuleBadge ? 43 : 23) : (card.info.nameRuleBadge && card.width >= 80 ? 13 : -8)
             text: "◆"; color: Theme.green
             font.pixelSize: card.width < 80 ? 16 : 24
             style: Text.Outline; styleColor: Theme.ink
@@ -209,7 +221,7 @@ Item {
             id: inspectAffordance
             objectName: "tabotaInspectAffordance"
             // Follow motion so the affordance lifts, tilts and scales with the card.
-            // Only hovering the details area reveals the tooltip, without a modal.
+            // Hovering the details area opens the centered illustration dialog.
             visible: card.splitClickDetails && card.interactive && card.faceUp && !card.exchangeMode
             opacity: card.lowerHalfHovered && !card.moving ? 1 : 0
             Behavior on opacity {
@@ -230,6 +242,7 @@ Item {
     }
     MouseArea {
         id: mouse
+        onExited: if (!api.state.detail.id) card.hoverInspectArmed = true
         onEntered: if (card.visible && card.enabled && !card.moving) api.uiSound("hover")
         anchors.fill: parent; hoverEnabled: card.interactive; enabled: card.interactive
         acceptedButtons: Qt.LeftButton | Qt.RightButton
@@ -245,6 +258,7 @@ Item {
             draggedGesture = false
         }
         onPositionChanged: event => {
+            if (!card.lowerHalfHovered) card.hoverInspectArmed = true
             if (!pressed || !card.dragEnabled || !(pressedButtons & Qt.LeftButton)) return
             if (!draggedGesture) {
                 const dx = event.x-pressX, dy = event.y-pressY
@@ -278,7 +292,7 @@ Item {
     objectName: "tabotaHoverDetails"
     width: 370
     contentItem: Text { text: detailsTip.text; color: Theme.white; font.pixelSize: 14; wrapMode: Text.WordWrap }
-    visible: card.showTip && (card.splitClickDetails ? card.lowerHalfHovered : card.hovered) && card.faceUp && !!card.info.name && !card.moving
+    visible: card.showTip && !card.splitClickDetails && !api.state.detail.id && card.hovered && card.faceUp && !!card.info.name && !card.moving
     delay: card.splitClickDetails ? 180 : 650
     timeout: 7000
     text: (card.info.name || "") + (card.battle ?

@@ -60,12 +60,39 @@ with tempfile.TemporaryDirectory() as directory:
     hand = next(i for i in visual_items(window.contentItem()) if i.objectName() == 'tabotaHandCard')
     QTest.mouseMove(window, hand.mapToScene(QPointF(45, 120)).toPoint())
     QTest.qWait(500)
-    tip = hand.findChild(QObject, 'tabotaHoverDetails')
-    assert tip.property('visible'), 'Hovering details must open the tooltip'
-    assert not api.detail and not api.plan, 'Hover must not select or open a full modal'
+    assert api.detail and not api.plan, 'Hover must open the illustration dialog without playing'
+    detail_panel = window.findChild(QObject, 'tabotaDetailPanel')
+    for width, height in [(1440, 900), (960, 600)]:
+        window.resize(width, height)
+        QTest.qWait(200)
+        center = detail_panel.mapToScene(QPointF(520, 337.5))
+        assert abs(center.x() - width / 2) < 1 and abs(center.y() - height / 2) < 1
+    window.resize(1440, 900)
+    QTest.qWait(200)
+    window.grabWindow().save(str(ROOT / 'test-artifacts/centered-details.png'))
+    api.closeDetail()
+    QTest.qWait(600)
+    assert not api.detail, 'Closing must not immediately reopen the hovered dialog'
     api.match.s['turn'] = 4
     api.ritual('clip')
     assert len(api.options) == 1 and not api.plan, 'Even a sole ritual requires confirmation'
+    api.cancelOptions()
+    api.mission = 3
+    api.match = Match(3)
+    api.match.s['mulligan'] = [True, True]
+    for owner in (0, 1):
+        api.match.s['board'][owner][0].append(api.match.new_unit('30', owner, 0))
+    api.refresh()
+    QTest.qWait(500)
+    roles = set()
+    for badge in visual_items(window.contentItem()):
+        if badge.objectName() != 'tabotaNameRuleBadge' or not badge.isVisible(): continue
+        card = badge.parentItem().parentItem()
+        placed = card.property('onTable')
+        roles.add(placed)
+        assert badge.property('y') == (23 if placed else -8)
+    assert roles == {True, False}, 'Check badges on both the table and the hand'
+    window.grabWindow().save(str(ROOT / 'test-artifacts/restored-badges.png'))
     font = QRawFont(str(ROOT / 'tabota/ui/fonts/NotoSansSymbols2-Regular.ttf'), 20)
     assert font.supportsCharacter(0x26a1) and font.supportsCharacter(0x2726)
     QTest.qWait(250)

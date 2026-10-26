@@ -45,7 +45,7 @@ najeżdżanie na karty, przyciski, tasowanie, cofanie i rytuały.
 - Muzyka: 4 motywy ekranów, unikalny motyw każdej z 20 rozpraw i dwa dżingle wyniku; płynne przenikanie przy przełączaniu scen, niezależne suwaki muzyki i dźwięków w Opcjach.
 - Nie-tutorialowe rozprawy: modalny WARUNEK ROZPRAWY → jego potwierdzenie → wymiana kart → właściwa rozgrywka. Kolejność zapisywana razem z pojedynkiem.
 
-Sterowanie podczas pojedynku: **klik górnej połowy karty** → wybór → klik strefy → wybór celu. **Najechanie na dolną połowę „SZCZEGÓŁY”** pokazuje opis bez kliknięcia i bez przebudowy planszy. Przeciąganie jest alternatywą. Prawy klik lub `I` na karcie również otwiera powiększenie, `Tab` / `Shift+Tab` przechodzą po kontrolkach, `Enter` / `Spacja` aktywują, `Esc` zamyka podgląd lub otwiera pauzę, `F11` przełącza pełny ekran. Efekty dobierania nie pozwalają dopisywać ruchów do zatwierdzonego planu.
+Sterowanie podczas pojedynku: **klik górnej połowy karty** → wybór → klik strefy → wybór celu. **Najechanie na dolną połowę „SZCZEGÓŁY”** otwiera wyśrodkowane okno z dużą ilustracją i opisem, bez kliknięcia i bez przebudowy planszy. Przeciąganie jest alternatywą. Prawy klik lub `I` na karcie również otwiera powiększenie, `Tab` / `Shift+Tab` przechodzą po kontrolkach, `Enter` / `Spacja` aktywują, `Esc` zamyka podgląd lub otwiera pauzę, `F11` przełącza pełny ekran. Efekty dobierania nie pozwalają dopisywać ruchów do zatwierdzonego planu.
 
 ## Ścieżka dźwiękowa
 

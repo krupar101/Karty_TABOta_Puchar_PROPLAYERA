@@ -20,9 +20,10 @@ class BadgePlacementTests(unittest.TestCase):
         self.assertIn('objectName: "tabotaNameRuleBadge"', CARD)
         self.assertIn('property bool compact: card.width < 80', CARD)
         self.assertIn('x: parent.width - width - (compact ? 1 : 0)', CARD)
-        self.assertIn('y: 23', CARD)
+        self.assertIn('y: card.onTable ? 23 : (compact ? -22 : -8)', CARD)
         self.assertNotIn('x: parent.width - 53; y: 6;', CARD)
-        # In challenge 03 the 2.7px upward offset preserves the title rows.
+        self.assertEqual(BATTLE.count('onTable: true'), 2)
+        self.assertIn('property bool onTable: false', CARD)
         self.assertIn('Row { x: 15; y: 53;', BATTLE)
         self.assertIn('Row { x: 15; y: 234;', BATTLE)
 
@@ -46,7 +47,7 @@ class BadgePlacementTests(unittest.TestCase):
                     self.assertLessEqual(y + badge_height, width * 603 / 388)
 
     def test_rule_and_protection_stay_separate(self):
-        self.assertIn('y: card.info.nameRuleBadge ? 43 : 23', CARD)
+        self.assertIn('y: card.onTable ? (card.info.nameRuleBadge ? 43 : 23)', CARD)
         self.assertIn('font.pixelSize: card.width < 80 ? 16 : 24', CARD)
         for width in (52, 67, 98, 132):
             bottom = 23 + (14 if width < 80 else 17)

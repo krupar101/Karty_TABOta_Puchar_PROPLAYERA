@@ -82,7 +82,7 @@ Item {
                             property var unit: lane.laneInfo.enemyUnits[index] || null
                             width: lane.laneInfo.capacity === 5 ? 52 : 67; height: 104
                             Rectangle { anchors.fill: parent; radius: 4; color: "#100c17"; border.color: "#302137"; Text { anchors.centerIn: parent; text: "+"; color: "#403049"; font.pixelSize: 18 } }
-                            Card { anchors.horizontalCenter: parent.horizontalCenter; width: parent.width; visible: !!parent.unit; info: parent.unit || {}; battle: true; lift: false; onClicked: api.inspect(info.id)
+                            Card { anchors.horizontalCenter: parent.horizontalCenter; width: parent.width; visible: !!parent.unit; info: parent.unit || {}; battle: true; onTable: true; lift: false; onClicked: api.inspect(info.id)
                                 opacity: parent.unit ? 1 : 0
                                 Behavior on opacity { NumberAnimation { duration: s.settings.reduced ? 50 : 300 } }
                             }
@@ -104,7 +104,7 @@ Item {
                             property var unit: lane.laneInfo.playerUnits[index] || null
                             width: lane.laneInfo.capacity === 5 ? 52 : 67; height: 104
                             Rectangle { anchors.fill: parent; radius: 4; color: lane.dropLegal ? "#30203d" : "#100c17"; border.color: lane.dropLegal ? "#8f7945" : "#302137"; Text { anchors.centerIn: parent; text: lane.dropLegal ? "↓" : "+"; color: lane.dropLegal ? Theme.gold : "#403049"; font.pixelSize: 20 } }
-                            Card { anchors.horizontalCenter: parent.horizontalCenter; width: parent.width; visible: !!parent.unit; info: parent.unit || {}; battle: true; lift: false; splitClickDetails: false; onClicked: api.inspect(info.id) }
+                            Card { anchors.horizontalCenter: parent.horizontalCenter; width: parent.width; visible: !!parent.unit; info: parent.unit || {}; battle: true; onTable: true; lift: false; splitClickDetails: false; onClicked: api.inspect(info.id) }
                             MouseArea { anchors.fill: parent; enabled: !parent.unit; cursorShape: lane.laneInfo.legal ? Qt.PointingHandCursor : Qt.ArrowCursor; onClicked: api.chooseLane(lane.index) }
                         }
                     }

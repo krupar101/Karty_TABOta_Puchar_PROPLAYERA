@@ -120,17 +120,24 @@ ApplicationWindow {
             anchors.fill: parent; color: "#e3090612"; z: 300
             open: !!(window.s.detail && window.s.detail.id) && !window.s.options.length && window.s.confirmation === ""
             MouseArea { anchors.fill: parent; onClicked: api.closeDetail() }
-            Row {
-                x: 240; y: 100; spacing: 60
-                Card { width: 388; info: window.displayDetail; interactive: false; showTip: false }
-                Column { width: 480; spacing: 24
-                    y: 40
-                    Heading { width: parent.width; eyebrow: window.displayDetailTarot ? "Oryginalne karty TABOta" : "Katalog / " + window.displayDetail.id; title: window.displayDetail.name || "" }
-                    Text { font.family: "Noto Sans Symbols 2"; visible: !window.displayDetailTarot; text: "⚡ KOSZT " + window.displayDetail.cost + (window.displayDetail.kind === "event" ? "" : "     ✦ MOC " + window.displayDetail.power) + "    /    " + window.displayDetail.tag; color: Theme.gold; font.pixelSize: 18; font.bold: true }
-                    Text { width: parent.width; text: window.displayDetailTarot ? window.displayDetail.fortune || "" : window.displayDetail.description || ""; color: Theme.white; wrapMode: Text.WordWrap; font.pixelSize: 21; lineHeight: 1.4 }
-                    Text { visible: !!window.displayDetail.nameRuleHint; width: parent.width; text: window.displayDetail.nameRuleHint || ""; color: Theme.gold; font.pixelSize: 15; wrapMode: Text.WordWrap; lineHeight: 1.3 }
-                    Text { width: parent.width; text: window.displayDetailTarot ? "Autorskie dopowiedzenie do symbolu. Oryginalny cytat i słowa-klucze znajdziesz na ilustracji." : window.displayDetail.source || ""; color: Theme.muted; font.pixelSize: 14; wrapMode: Text.WordWrap; lineHeight: 1.4 }
-                    BButton { text: "Zamknij  ·  Esc"; onClicked: api.closeDetail() }
+            Rectangle {
+                objectName: "tabotaDetailPanel"
+                anchors.centerIn: parent
+                width: 1040; height: 675; radius: 18
+                color: Theme.panel; border.color: Theme.line; border.width: 1
+                MouseArea { anchors.fill: parent } // Keep clicks inside the window from closing it.
+                Row {
+                    anchors.centerIn: parent; spacing: 60
+                    Card { width: 388; info: window.displayDetail; interactive: false; showTip: false }
+                    Column { width: 480; spacing: 24
+                        y: 40
+                        Heading { width: parent.width; eyebrow: window.displayDetailTarot ? "Oryginalne karty TABOta" : "Katalog / " + window.displayDetail.id; title: window.displayDetail.name || "" }
+                        Text { font.family: "Noto Sans Symbols 2"; visible: !window.displayDetailTarot; text: "⚡ KOSZT " + window.displayDetail.cost + (window.displayDetail.kind === "event" ? "" : "     ✦ MOC " + window.displayDetail.power) + "    /    " + window.displayDetail.tag; color: Theme.gold; font.pixelSize: 18; font.bold: true }
+                        Text { width: parent.width; text: window.displayDetailTarot ? window.displayDetail.fortune || "" : window.displayDetail.description || ""; color: Theme.white; wrapMode: Text.WordWrap; font.pixelSize: 21; lineHeight: 1.4 }
+                        Text { visible: !!window.displayDetail.nameRuleHint; width: parent.width; text: window.displayDetail.nameRuleHint || ""; color: Theme.gold; font.pixelSize: 15; wrapMode: Text.WordWrap; lineHeight: 1.3 }
+                        Text { width: parent.width; text: window.displayDetailTarot ? "Autorskie dopowiedzenie do symbolu. Oryginalny cytat i słowa-klucze znajdziesz na ilustracji." : window.displayDetail.source || ""; color: Theme.muted; font.pixelSize: 14; wrapMode: Text.WordWrap; lineHeight: 1.4 }
+                        BButton { text: "Zamknij  ·  Esc"; onClicked: api.closeDetail() }
+                    }
                 }
             }
         }
