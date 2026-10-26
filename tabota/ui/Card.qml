@@ -32,7 +32,7 @@ Item {
     Timer {
         interval: 120
         running: card.lowerHalfHovered && !card.previewActive && card.interactive &&
-                 card.faceUp && !card.exchangeMode && !mouse.pressed && !card.moving &&
+                 card.faceUp && !card.moving &&
                  !api.state.detail.id && !api.state.options.length && !api.state.confirmation && !api.state.busy
         onTriggered: {
             card.previewActive = true
@@ -137,7 +137,7 @@ Item {
         // A number alone is ambiguous; every cost and power value has its own icon.
         Rectangle {
             visible: card.battle && card.faceUp && card.info.kind !== "token" && card.info.cost !== undefined
-            x: -5; y: -7; width: 43; height: 28; radius: 14
+            x: -5; y: card.onTable && card.info.nameRuleBadge ? 18 : -7; width: 43; height: 28; radius: 14
             color: "#322046"; border.color: Theme.purple; border.width: 2
             Row {
                 anchors.centerIn: parent; spacing: 3
@@ -166,7 +166,7 @@ Item {
                            : (card.info.nameRuleBadge === "A" ? 25 : 48)
             height: compact ? 14 : 17
             x: parent.width - width - (compact ? 1 : 0)
-            y: card.onTable ? 23 : (compact ? -22 : -8)
+            y: card.onTable ? 2 : (compact ? -22 : -8)
             radius: height / 2
             color: card.info.nameRuleBadge === "A" ? "#3f294f" : "#254235"
             border.color: card.info.nameRuleBadge === "A" ? Theme.gold : Theme.green
@@ -208,7 +208,7 @@ Item {
             // Shield remains separate from both the energy chip and the rule
             // badge. On compact cards it sits directly BELOW the top rail.
             x: parent.width - (card.width < 80 ? 15 : 21)
-            y: card.onTable ? (card.info.nameRuleBadge ? 43 : 23) : (card.info.nameRuleBadge && card.width >= 80 ? 13 : -8)
+            y: card.onTable && card.info.nameRuleBadge ? 49 : (card.info.nameRuleBadge && card.width >= 80 ? 13 : -8)
             text: "◆"; color: Theme.green
             font.pixelSize: card.width < 80 ? 16 : 24
             style: Text.Outline; styleColor: Theme.ink
@@ -233,7 +233,7 @@ Item {
             objectName: "tabotaInspectAffordance"
             // Follow motion so the affordance lifts, tilts and scales with the card.
             // Hovering the details area shows a centered, input-transparent preview.
-            visible: card.splitClickDetails && card.interactive && card.faceUp && !card.exchangeMode
+            visible: card.splitClickDetails && card.interactive && card.faceUp
             opacity: card.lowerHalfHovered && !card.moving ? 1 : 0
             Behavior on opacity {
                 NumberAnimation {
@@ -256,20 +256,20 @@ Item {
         onEntered: if (card.visible && card.enabled && !card.moving) api.uiSound("hover")
         anchors.fill: parent; hoverEnabled: card.interactive; enabled: card.interactive
         acceptedButtons: Qt.LeftButton | Qt.RightButton
-        cursorShape: card.lowerHalfHovered ? Qt.PointingHandCursor : card.dragEnabled ? Qt.OpenHandCursor : Qt.PointingHandCursor
+        cursorShape: card.moving ? Qt.ClosedHandCursor : card.lowerHalfHovered ? Qt.PointingHandCursor : card.dragEnabled ? Qt.OpenHandCursor : Qt.PointingHandCursor
         // Battle.qml reparents THIS Card for both hover and drag; no visual copy.
         preventStealing: card.dragEnabled
         property real pressX: 0
         property real pressY: 0
         property bool draggedGesture: false
         onPressed: event => {
-            card.dismissPreview()
-            card.forceActiveFocus()
+            if (!card.lowerHalfHovered) card.dismissPreview()
+            if (!card.lowerHalfHovered) card.forceActiveFocus()
             pressX = event.x; pressY = event.y
             draggedGesture = false
         }
         onPositionChanged: event => {
-            if (!pressed || !card.dragEnabled || !(pressedButtons & Qt.LeftButton)) return
+            if (!pressed || !card.dragEnabled || (card.splitClickDetails && pressY >= card.height/2) || !(pressedButtons & Qt.LeftButton)) return
             if (!draggedGesture) {
                 const dx = event.x-pressX, dy = event.y-pressY
                 if (dx*dx+dy*dy < 64) return
@@ -283,7 +283,7 @@ Item {
         }
         onClicked: event => {
             if (draggedGesture) return
-            if (event.button === Qt.RightButton && card.faceUp && card.info.id)
+            if (event.button === Qt.RightButton && !card.lowerHalfHovered && card.faceUp && card.info.id)
                 api.inspect(card.info.id)
             else if (event.button === Qt.LeftButton && !(card.splitClickDetails && event.y >= card.height/2))
                 card.clicked()
@@ -302,7 +302,7 @@ Item {
     objectName: "tabotaHoverDetails"
     width: 370
     contentItem: Text { text: detailsTip.text; color: Theme.white; font.pixelSize: 14; wrapMode: Text.WordWrap }
-    visible: card.showTip && !card.splitClickDetails && !api.state.detail.id && card.hovered && card.faceUp && !!card.info.name && !card.moving
+    visible: card.showTip && !card.onTable && !card.exchangeMode && !card.splitClickDetails && !api.state.detail.id && card.hovered && card.faceUp && !!card.info.name && !card.moving
     delay: card.splitClickDetails ? 180 : 650
     timeout: 7000
     text: (card.info.name || "") + (card.battle ?

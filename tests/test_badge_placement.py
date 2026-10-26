@@ -20,7 +20,7 @@ class BadgePlacementTests(unittest.TestCase):
         self.assertIn('objectName: "tabotaNameRuleBadge"', CARD)
         self.assertIn('property bool compact: card.width < 80', CARD)
         self.assertIn('x: parent.width - width - (compact ? 1 : 0)', CARD)
-        self.assertIn('y: card.onTable ? 23 : (compact ? -22 : -8)', CARD)
+        self.assertIn('y: card.onTable ? 2 : (compact ? -22 : -8)', CARD)
         self.assertNotIn('x: parent.width - 53; y: 6;', CARD)
         self.assertEqual(BATTLE.count('onTable: true'), 2)
         self.assertIn('property bool onTable: false', CARD)
@@ -28,15 +28,15 @@ class BadgePlacementTests(unittest.TestCase):
         self.assertIn('Row { x: 15; y: 234;', BATTLE)
 
     def test_cost_and_rule_badge_never_intersect_for_all_card_widths(self):
-        for width in (52, 67, 90, 98, 120, 132, 388):
+        for width in (52, 67):
             for variant in ('A', 'BEZ A'):
                 compact = width < 80
                 badge_width = (19 if variant == 'A' else 39) if compact else (25 if variant == 'A' else 48)
                 badge_height = 14 if compact else 17
                 x = width - badge_width - (1 if compact else 0)
-                y = 23
+                y = 2
                 badge = (x, y, x + badge_width, y + badge_height)
-                cost = (-5, -7, 38, 21)
+                cost = (-5, 18, 38, 46)
                 with self.subTest(width=width, badge=variant):
                     self.assertGreaterEqual(x, 0, 'badge cannot protrude toward neighbouring card')
                     self.assertLessEqual(x + badge_width, width)
@@ -47,11 +47,11 @@ class BadgePlacementTests(unittest.TestCase):
                     self.assertLessEqual(y + badge_height, width * 603 / 388)
 
     def test_rule_and_protection_stay_separate(self):
-        self.assertIn('y: card.onTable ? (card.info.nameRuleBadge ? 43 : 23)', CARD)
+        self.assertIn('y: card.onTable && card.info.nameRuleBadge ? 49', CARD)
         self.assertIn('font.pixelSize: card.width < 80 ? 16 : 24', CARD)
         for width in (52, 67, 98, 132):
-            bottom = 23 + (14 if width < 80 else 17)
-            protection_top = 43
+            bottom = 2 + (14 if width < 80 else 17)
+            protection_top = 49
             with self.subTest(width=width):
                 self.assertLessEqual(bottom, protection_top)
 

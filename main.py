@@ -71,6 +71,8 @@ def main():
     engine.load(QUrl.fromLocalFile(str(ROOT/"tabota/ui/Main.qml")))
     if not engine.rootObjects():
         return 1
+    from tabota.cursor import GameCursor
+    game_cursor = GameCursor(engine.rootObjects()[0])
     bridge.quitRequested.connect(app.quit)
     if not args.screenshot and not os.environ.get("TABOTA_NO_AUDIO"):
         from tabota.audio import Audio

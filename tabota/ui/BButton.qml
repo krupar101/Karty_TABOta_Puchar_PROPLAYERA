@@ -9,6 +9,7 @@ Button {
     implicitWidth: Math.max(compact ? 80 : 160, contentItem.implicitWidth + 36)
     implicitHeight: compact ? 38 : 50
     hoverEnabled: true
+    HoverHandler { enabled: control.enabled; cursorShape: Qt.PointingHandCursor }
     Connections {
         target: control
         function onClicked() { api.uiSound("click") }

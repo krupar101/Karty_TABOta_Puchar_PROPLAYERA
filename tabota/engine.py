@@ -383,6 +383,7 @@ class Match:
                 self.move(self.find(a["targets"][0]), a["dest"])
                 return
             if not self.once(f"ritual:{p}"): return
+            self.s["flags"][f"ritualKind:{p}"] = kind
             self.log(f"{'TABO' if p == 0 else 'RYWAL'} · RYTUAŁ {kind.upper()}.")
             if kind == "hymn":
                 self.add_points(p, lane, 5 if self.s["mission"] == 13 else 3, "Rytuał Hymn")

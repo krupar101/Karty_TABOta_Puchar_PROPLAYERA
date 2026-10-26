@@ -7,7 +7,7 @@ from unittest.mock import Mock, patch
 
 from PySide6.QtCore import QCoreApplication, QByteArray
 from PySide6.QtMultimedia import QAudioBuffer, QAudioFormat
-from tabota.audio import MusicDirector, Audio, CUES, synthesize
+from tabota.audio import MusicDirector, Audio, CUES, synthesize, SFX_PEAK, MUSIC_GAIN
 from tabota.bridge import Bridge
 from tabota.spectrum import spectrum, FREQUENCIES
 
@@ -68,7 +68,7 @@ class AudioVisualTests(unittest.TestCase):
             data = synthesize(kind)
             samples = struct.unpack("<" + "h"*(len(data)//2), data)
             self.assertGreater(max(samples), 0)
-            self.assertLessEqual(max(abs(v) for v in samples), 5000)
+            self.assertLessEqual(max(abs(v) for v in samples), SFX_PEAK)
             self.assertEqual(samples[0], 0)
         audio = Audio.__new__(Audio)
         audio.settings = dict(sound=True, volume=.4)
@@ -83,6 +83,21 @@ class AudioVisualTests(unittest.TestCase):
         audio.settings["sound"] = False
         audio.play("ritual")
         self.assertEqual(audio.sink.start.call_count, 1)
+
+    def test_sfx_music_mix_has_headroom_and_independent_sliders(self):
+        director = MusicDirector.__new__(MusicDirector)
+        director.settings = dict(music=True, musicVolume=.2, volume=1.0)
+        director.duck = 1.0
+        self.assertAlmostEqual(director.gain(), .2 * MUSIC_GAIN)
+        pcm = synthesize('card')
+        values = struct.unpack('<' + 'h' * (len(pcm)//2), pcm)
+        peak = max(abs(x) for x in values) / 32768
+        self.assertGreater(peak, director.gain() * 4)
+        self.assertLess(peak, 1)
+        director.settings['volume'] = 0
+        self.assertAlmostEqual(director.gain(), .2 * MUSIC_GAIN)
+        director.settings['musicVolume'] = 0
+        self.assertEqual(director.gain(), 0)
 
     def test_spectrum_does_not_refresh_game_or_save(self):
         with tempfile.TemporaryDirectory() as directory:

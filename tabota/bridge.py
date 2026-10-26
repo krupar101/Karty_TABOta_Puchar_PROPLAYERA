@@ -275,6 +275,7 @@ class Bridge(QObject):
                 wins=[m.wins(0), m.wins(1)], total=[sum(scores[0]), sum(scores[1])], seed=m.s["seed"],
                 plan=[self.match.action_label(a) for a in self.plan], ritual=bool(ritual),
                 ritualKinds=list(dict.fromkeys(a["special"] for a in ritual)),
+                usedRitual=({"hymn": "Użyto: Hymn", "ban": "Użyto: Ban", "clip": "Użyto: Klip"}.get(m.s["flags"].get("ritualKind:0"), "Rytuał wykorzystany") if m.s["flags"].get("ritual:0") else ""),
                 flight=False if self.busy else bool(projected.flight_options(0)), tutorial=m.s["tutorial"],
                 rulePending=self.rule_pending(),
                 mulligan=not m.s["mulligan"][0] and not m.s["tutorial"],

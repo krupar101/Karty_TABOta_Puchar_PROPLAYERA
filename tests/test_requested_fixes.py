@@ -28,7 +28,7 @@ class RequestedFixesTests(unittest.TestCase):
         self.assertEqual(campaign_difficulty(1, selected='easy'), 'easy')
 
     def test_migrate_legacy_data_once_without_destroying_it(self):
-        with tempfile.TemporaryDirectory() as directory, patch.dict(os.environ, {'XDG_DATA_HOME': directory}, clear=True), patch('tabota.storage.sys.platform', 'linux'):
+        with tempfile.TemporaryDirectory() as directory, patch.dict(os.environ, {'XDG_DATA_HOME': directory}, clear=True), patch('tabota.storage.sys.platform', 'linux'), patch('tabota.storage.Path.home', return_value=Path(directory)):
             old = Path(directory) / 'tabota'
             old.mkdir()
             (old / 'campaign.json').write_text('legacy')

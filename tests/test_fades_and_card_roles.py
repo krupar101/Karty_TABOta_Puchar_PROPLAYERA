@@ -30,7 +30,7 @@ class FadeAndCardRoleContracts(unittest.TestCase):
         self.assertIn('objectName: "tabotaInspectAffordance"', self.card)
         self.assertIn('opacity: card.lowerHalfHovered && !card.moving ? 1 : 0', self.card)
         self.assertIn('card.splitClickDetails && event.y >= card.height/2', self.card)
-        self.assertIn('splitClickDetails: !b.mulligan && !b.choice', self.battle)
+        self.assertIn('splitClickDetails: !b.choice', self.battle)
 
     def test_placed_cards_have_no_split_or_inspection_overlay(self):
         lines = self.battle.splitlines()

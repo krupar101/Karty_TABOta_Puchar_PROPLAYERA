@@ -3,7 +3,7 @@ from pathlib import Path
 import sys
 
 root = Path(SPECPATH)
-datas = [(str(root / "ikona.png"), "."), (str(root / "Game_Design.md"), "."),
+datas = [(str(root / "cursor"), "cursor"), (str(root / "ikona.png"), "."), (str(root / "Game_Design.md"), "."),
          (str(root / "karty-front"), "karty-front"),
          (str(root / "karty-rewers.png"), "."),
          (str(root / "music"), "music"),

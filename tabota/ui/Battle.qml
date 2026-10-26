@@ -13,10 +13,14 @@ Item {
     // QML binding on the screen or reload the campaign/collection state.
     property var liveBoard: api.battleBoard
     property var b: liveBoard && liveBoard.lanes ? liveBoard : lastBoard
-    onLiveBoardChanged: if (liveBoard && liveBoard.lanes) lastBoard = liveBoard
+    onLiveBoardChanged: if (liveBoard && liveBoard.lanes) {
+        // Undoing a planned ritual returns its selection to the single dialog.
+        if (liveBoard.ritual && lastBoard.ritual === false) ritualPrompted = false
+        lastBoard = liveBoard
+    }
     property bool ritualPrompted: false
     Timer {
-        interval: 250; running: b.ritual && !table.ritualPrompted && !s.busy && !b.rulePending && !b.mulligan
+        interval: 250; running: b.ritual && !table.ritualPrompted && !s.options.length && !s.busy && !b.rulePending && !b.mulligan
         onTriggered: { table.ritualPrompted = true; api.ritual("all") }
     }
     property bool showLog: false
@@ -188,7 +192,7 @@ Item {
                         objectName: "tabotaHandCard"
                         width: handSlot.width; info: handSlot.handInfo; battle: true
                         dragCoordinateSpace: table
-                        splitClickDetails: !b.mulligan && !b.choice
+                        splitClickDetails: !b.choice
                         showTip: true
                         chosen: (table.dragActive && table.dragUid === handSlot.handInfo.uid) ||
                                 handSlot.handInfo.selected || handSlot.handInfo.exchange ||
@@ -269,7 +273,7 @@ Item {
         }
         Text {
             x: 27; y: 97; width: 890
-            text: "Kliknij maksymalnie 2 karty, których NIE chcesz zatrzymać. Zostaną zastąpione losowymi kartami z talii."
+            text: "Kliknij górną połowę maksymalnie 2 kart, których NIE chcesz zatrzymać. Zostaną zastąpione losowymi kartami z talii."
             color: Theme.white; font.pixelSize: 15; wrapMode: Text.WordWrap
         }
         Text {
@@ -295,11 +299,13 @@ Item {
                 Text { id: rules; width: parent.width-12; text: s.encounter.activeRule; color: Theme.muted; font.pixelSize: 12; wrapMode: Text.WordWrap; lineHeight: 1.35 }
             }
             Rectangle { width: parent.width; height: 1; color: Theme.line }
-            Text { width: parent.width; text: "RYTUAŁ 20:30" + (b.turn === 4 && s.encounter.id >= 4 ? "  /  TERAZ" : s.encounter.id < 4 ? "  /  OD MISJI 04" : "  /  TURA 4"); color: b.ritual ? Theme.gold : Theme.muted; font.pixelSize: 10; font.letterSpacing: 1 }
-            Row { spacing: 7
-                BButton { text: "Hymn"; width: 89; compact: true; enabled: b.ritualKinds.indexOf("hymn") >= 0 && !s.busy; onClicked: api.ritual("hymn") }
-                BButton { text: "Ban"; width: 89; compact: true; enabled: b.ritualKinds.indexOf("ban") >= 0 && !s.busy; onClicked: api.ritual("ban") }
-                BButton { text: "Klip"; width: 89; compact: true; enabled: b.ritualKinds.indexOf("clip") >= 0 && !s.busy; onClicked: api.ritual("clip") }
+            Text { width: parent.width; text: "RYTUAŁ 20:30"; color: Theme.muted; font.pixelSize: 10; font.letterSpacing: 1 }
+            Text {
+                objectName: "tabotaUsedRitual"
+                width: parent.width
+                text: b.usedRitual || "Rytuał jeszcze niewykorzystany"
+                color: b.usedRitual ? Theme.gold : Theme.muted
+                font.pixelSize: 14; wrapMode: Text.WordWrap
             }
             BButton { visible: b.flight; text: "Darmowy lot"; width: 282; compact: true; enabled: !s.busy; onClicked: api.ritual("flight") }
             Row { spacing: 8

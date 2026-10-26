@@ -8,6 +8,9 @@ from .spectrum import spectrum, BAND_COUNT
 from PySide6.QtMultimedia import QAudioFormat, QAudioSink, QMediaDevices, QAudioOutput, QMediaPlayer, QAudioBufferOutput
 
 
+SFX_PEAK = 24000  # Headroom below signed 16-bit clipping, +13.6 dB vs the old mix.
+MUSIC_GAIN = .35  # Master trim; independent of the user music slider.
+
 CUES = {"hover": ([920], .035, .22), "click": ([720], .055, .55),
         "card": ([210, 330], .13, .8), "select": ([540, 660], .075, .45),
         "undo": ([520, 350], .10, .5), "shuffle": ([240, 380, 290], .20, .6),
@@ -27,7 +30,7 @@ def synthesize(kind):
         f = frequencies[part]
         envelope = min(1, t/.008) * (1-t/duration)**1.8
         value = (.8*math.sin(2*math.pi*f*t) + .2*math.sin(2*math.pi*2*f*t)) * envelope
-        samples.append(struct.pack("<h", int(value*5000*gain)))
+        samples.append(struct.pack("<h", int(value*SFX_PEAK*gain)))
     return b"".join(samples)
 
 
@@ -155,7 +158,8 @@ class MusicDirector(QObject):
 
     def publish_spectrum(self):
         now = monotonic()
-        weights = [self.levels[i] * self.gain() if now-self.sample_times[i] < .25 else 0 for i in range(2)]
+        # Master audio trim must not reduce the existing visual motion.
+        weights = [self.levels[i] * (self.gain() / MUSIC_GAIN) if now-self.sample_times[i] < .25 else 0 for i in range(2)]
         self.spectrumChanged.emit([min(1.0, sum(self.bands[i][b]*weights[i] for i in range(2))) for b in range(BAND_COUNT)])
 
     def set_duck(self, active):
@@ -174,7 +178,7 @@ class MusicDirector(QObject):
     def gain(self):
         if not self.settings.get("music", True):
             return 0.0
-        return min(1.0, max(0.0, float(self.settings.get("musicVolume", .35)))) * self.duck
+        return min(1.0, max(0.0, float(self.settings.get("musicVolume", .35)))) * MUSIC_GAIN * self.duck
 
     def change(self, screen, mission):
         desired = soundtrack_for(screen, mission)

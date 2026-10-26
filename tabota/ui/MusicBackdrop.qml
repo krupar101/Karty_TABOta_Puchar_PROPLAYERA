@@ -14,7 +14,7 @@ Item {
     }
     Rectangle {
         x: 820; y: -220; width: 700; height: 700; radius: 350
-        color: "#10101c"; opacity: .5 + backdrop.bass * .2
+        color: "#10101c"; opacity: .5
         scale: 1 + backdrop.bass * .045
         Behavior on scale { NumberAnimation { duration: api.state.settings.reduced ? 0 : 180 } }
     }

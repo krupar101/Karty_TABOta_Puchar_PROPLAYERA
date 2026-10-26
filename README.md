@@ -2,6 +2,8 @@
 
 Jednoosobowa gra karciana offline na Linuxa, Windowsa i macOS. Python + Qt Quick (PySide6), bez przeglądarki, konta, serwera i telemetrii. Wykorzystuje wszystkie dostarczone ilustracje oraz ten sam `karty-rewers.png` dla każdej zakrytej karty.
 
+Najnowsza iteracja UI: własny kursor (normal/grab/click), podgląd hover także przy wymianie, szczegóły kart na stole tylko po kliknięciu, stały odcień koła i mocniejsze efekty dźwiękowe. Panel rytuału pokazuje wyłącznie już użyty rytuał.
+
 Aktualne poprawki 12 zgłoszeń: [opis zmian i wyniki kontroli](docs/FIXES_2026-10-26.md).
 Starsze sekcje „Aktualizacja” poniżej są historią prac; bieżące zachowanie opisuje ten raport.
 
