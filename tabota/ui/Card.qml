@@ -17,15 +17,26 @@ Item {
     // Only hand/placed battle cards use split click: upper half acts, lower half inspects.
     property bool splitClickDetails: false
     property bool lowerHalfHovered: splitClickDetails && mouse.containsMouse && mouse.mouseY >= height / 2 && !mouse.draggedGesture
-    property bool hoverInspectArmed: true
+    signal previewRequested(var info)
+    signal previewDismissed()
+    property bool previewActive: false
+    function dismissPreview() {
+        if (previewActive) {
+            previewActive = false
+            previewDismissed()
+        }
+    }
+    onLowerHalfHoveredChanged: if (!lowerHalfHovered) dismissPreview()
+    onVisibleChanged: if (!visible) dismissPreview()
+    Component.onDestruction: dismissPreview()
     Timer {
-        interval: 300
-        running: card.lowerHalfHovered && card.hoverInspectArmed && card.interactive &&
+        interval: 120
+        running: card.lowerHalfHovered && !card.previewActive && card.interactive &&
                  card.faceUp && !card.exchangeMode && !mouse.pressed && !card.moving &&
                  !api.state.detail.id && !api.state.options.length && !api.state.confirmation && !api.state.busy
         onTriggered: {
-            card.hoverInspectArmed = false
-            api.inspect(card.info.id)
+            card.previewActive = true
+            card.previewRequested(card.info)
         }
     }
     property bool dragEnabled: false
@@ -221,7 +232,7 @@ Item {
             id: inspectAffordance
             objectName: "tabotaInspectAffordance"
             // Follow motion so the affordance lifts, tilts and scales with the card.
-            // Hovering the details area opens the centered illustration dialog.
+            // Hovering the details area shows a centered, input-transparent preview.
             visible: card.splitClickDetails && card.interactive && card.faceUp && !card.exchangeMode
             opacity: card.lowerHalfHovered && !card.moving ? 1 : 0
             Behavior on opacity {
@@ -242,7 +253,6 @@ Item {
     }
     MouseArea {
         id: mouse
-        onExited: if (!api.state.detail.id) card.hoverInspectArmed = true
         onEntered: if (card.visible && card.enabled && !card.moving) api.uiSound("hover")
         anchors.fill: parent; hoverEnabled: card.interactive; enabled: card.interactive
         acceptedButtons: Qt.LeftButton | Qt.RightButton
@@ -253,12 +263,12 @@ Item {
         property real pressY: 0
         property bool draggedGesture: false
         onPressed: event => {
+            card.dismissPreview()
             card.forceActiveFocus()
             pressX = event.x; pressY = event.y
             draggedGesture = false
         }
         onPositionChanged: event => {
-            if (!card.lowerHalfHovered) card.hoverInspectArmed = true
             if (!pressed || !card.dragEnabled || !(pressedButtons & Qt.LeftButton)) return
             if (!draggedGesture) {
                 const dx = event.x-pressX, dy = event.y-pressY

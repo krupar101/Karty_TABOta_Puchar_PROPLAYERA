@@ -14,13 +14,27 @@ ApplicationWindow {
     // Retain the last modal contents for the closing fade. The Python bridge
     // clears detail/options immediately after a click; fading blank panels
     // would otherwise flash visibly for a frame.
+    property var quickDetail: ({})
+    property var retainedQuickDetail: ({})
+    property bool quickDetailMode: false
+    onQuickDetailChanged: {
+        if (quickDetail.id) { retainedQuickDetail = quickDetail; quickDetailMode = true }
+    }
+    Connections {
+        target: content.item
+        ignoreUnknownSignals: true
+        function onQuickPreview(info) { window.quickDetail = info }
+    }
     property var retainedDetail: ({})
     property bool retainedDetailTarot: false
     property var retainedOptions: []
     property string retainedConfirmation: ""
     property string retainedNotice: ""
     onSChanged: {
+        if (s.busy || s.options.length || s.confirmation || s.screen !== "battle") quickDetail = ({})
         if (s.detail && s.detail.id) {
+            quickDetailMode = false
+            quickDetail = ({})
             retainedDetail = s.detail
             retainedDetailTarot = !!s.detailTarot
         }
@@ -28,8 +42,8 @@ ApplicationWindow {
         if (s.confirmation) retainedConfirmation = s.confirmation
         if (s.notice) retainedNotice = s.notice
     }
-    property var displayDetail: s.detail && s.detail.id ? s.detail : retainedDetail
-    property bool displayDetailTarot: s.detail && s.detail.id ? !!s.detailTarot : retainedDetailTarot
+    property var displayDetail: quickDetailMode ? (quickDetail.id ? quickDetail : retainedQuickDetail) : s.detail && s.detail.id ? s.detail : retainedDetail
+    property bool displayDetailTarot: quickDetailMode ? false : s.detail && s.detail.id ? !!s.detailTarot : retainedDetailTarot
     property var displayOptions: s.options && s.options.length ? s.options : retainedOptions
     property string displayConfirmation: s.confirmation || retainedConfirmation
     property string displayNotice: s.notice || retainedNotice
@@ -68,6 +82,7 @@ ApplicationWindow {
             return ({menu:"Menu.qml", slots:"Slots.qml", intro:"Story.qml", ending:"Story.qml", map:"Campaign.qml", briefing:"Briefing.qml", battle:"Battle.qml", pause:"Pause.qml", result:"Result.qml", collection:"Collection.qml", builder:"Collection.qml", fortune:"Fortune.qml", reading:"Reading.qml", history:"History.qml", settings:"Settings.qml", help:"Help.qml", journal:"Help.qml"})[screen] || "Menu.qml"
         }
         onRequestedScreenChanged: {
+            window.quickDetail = ({})
             if (requestedScreen === displayedScreen) {
                 if (pageFadeOut.running) { pageFadeOut.stop(); pageFadeIn.start() }
             } else if (!pageFadeOut.running) {
@@ -116,18 +131,20 @@ ApplicationWindow {
 
         FadeBox {
             objectName: "tabotaDetailDialog"
-            fadeDuration: window.s.settings.reduced ? 35 : 150
-            anchors.fill: parent; color: "#e3090612"; z: 300
-            open: !!(window.s.detail && window.s.detail.id) && !window.s.options.length && window.s.confirmation === ""
+            fadeDuration: window.s.settings.reduced ? 35 : window.quickDetailMode ? 90 : 150
+            anchors.fill: parent; color: window.quickDetailMode ? "transparent" : "#e3090612"; z: 300
+            enabled: open && !window.quickDetailMode
+            open: !!(window.quickDetail.id || (window.s.detail && window.s.detail.id)) && !window.s.options.length && window.s.confirmation === ""
             MouseArea { anchors.fill: parent; onClicked: api.closeDetail() }
             Rectangle {
                 objectName: "tabotaDetailPanel"
                 anchors.centerIn: parent
-                width: 1040; height: 675; radius: 18
+                width: window.quickDetailMode ? 800 : 1040; height: window.quickDetailMode ? 520 : 675; radius: 18
                 color: Theme.panel; border.color: Theme.line; border.width: 1
                 MouseArea { anchors.fill: parent } // Keep clicks inside the window from closing it.
                 Row {
                     anchors.centerIn: parent; spacing: 60
+                    scale: window.quickDetailMode ? .74 : 1
                     Card { width: 388; info: window.displayDetail; interactive: false; showTip: false }
                     Column { width: 480; spacing: 24
                         y: 40
@@ -136,7 +153,7 @@ ApplicationWindow {
                         Text { width: parent.width; text: window.displayDetailTarot ? window.displayDetail.fortune || "" : window.displayDetail.description || ""; color: Theme.white; wrapMode: Text.WordWrap; font.pixelSize: 21; lineHeight: 1.4 }
                         Text { visible: !!window.displayDetail.nameRuleHint; width: parent.width; text: window.displayDetail.nameRuleHint || ""; color: Theme.gold; font.pixelSize: 15; wrapMode: Text.WordWrap; lineHeight: 1.3 }
                         Text { width: parent.width; text: window.displayDetailTarot ? "Autorskie dopowiedzenie do symbolu. Oryginalny cytat i słowa-klucze znajdziesz na ilustracji." : window.displayDetail.source || ""; color: Theme.muted; font.pixelSize: 14; wrapMode: Text.WordWrap; lineHeight: 1.4 }
-                        BButton { text: "Zamknij  ·  Esc"; onClicked: api.closeDetail() }
+                        BButton { visible: !window.quickDetailMode; text: "Zamknij  ·  Esc"; onClicked: api.closeDetail() }
                     }
                 }
             }

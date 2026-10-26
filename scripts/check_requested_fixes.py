@@ -58,21 +58,32 @@ with tempfile.TemporaryDirectory() as directory:
     api.exchange()
     QTest.qWait(400)
     hand = next(i for i in visual_items(window.contentItem()) if i.objectName() == 'tabotaHandCard')
-    QTest.mouseMove(window, hand.mapToScene(QPointF(45, 120)).toPoint())
-    QTest.qWait(500)
-    assert api.detail and not api.plan, 'Hover must open the illustration dialog without playing'
+    dialog = window.findChild(QObject, 'tabotaDetailDialog')
     detail_panel = window.findChild(QObject, 'tabotaDetailPanel')
     for width, height in [(1440, 900), (960, 600)]:
         window.resize(width, height)
         QTest.qWait(200)
-        center = detail_panel.mapToScene(QPointF(520, 337.5))
+        focus_before = window.activeFocusItem()
+        QTest.mouseMove(window, hand.mapToScene(QPointF(45, 120)).toPoint())
+        QTest.qWait(300)
+        assert dialog.property('open') and not dialog.isEnabled()
+        assert not api.detail and not api.plan, 'Hover preview must stay local and non-modal'
+        assert window.activeFocusItem() == focus_before, 'Preview must not steal focus'
+        center = detail_panel.mapToScene(QPointF(detail_panel.width()/2, detail_panel.height()/2))
         assert abs(center.x() - width / 2) < 1 and abs(center.y() - height / 2) < 1
+        assert detail_panel.width() == 800 and detail_panel.height() == 520
+        QTest.mouseMove(window, hand.mapToScene(QPointF(45, 20)).toPoint())
+        QTest.qWait(200)
+        assert not dialog.property('open'), 'Leaving only the details region must hide preview'
     window.resize(1440, 900)
     QTest.qWait(200)
-    window.grabWindow().save(str(ROOT / 'test-artifacts/centered-details.png'))
-    api.closeDetail()
-    QTest.qWait(600)
-    assert not api.detail, 'Closing must not immediately reopen the hovered dialog'
+    QTest.mouseMove(window, hand.mapToScene(QPointF(45, 120)).toPoint())
+    QTest.qWait(300)
+    assert dialog.property('open'), 'Preview must reopen on each hover'
+    window.grabWindow().save(str(ROOT / 'test-artifacts/quick-details.png'))
+    QTest.mouseMove(window, QPointF(1420, 880).toPoint())
+    QTest.qWait(200)
+    assert not dialog.property('open')
     api.match.s['turn'] = 4
     api.ritual('clip')
     assert len(api.options) == 1 and not api.plan, 'Even a sole ritual requires confirmation'

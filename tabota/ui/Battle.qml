@@ -3,6 +3,7 @@ import QtQuick.Controls
 
 Item {
     id: table
+    signal quickPreview(var info)
     objectName: "tabotaBattleTable"
     property var s: api.state
     // During an outgoing screen fade the bridge may already clear the match.
@@ -182,6 +183,8 @@ Item {
 
                     Card {
                         id: handCard
+                        onPreviewRequested: info => table.quickPreview(info)
+                        onPreviewDismissed: table.quickPreview(({}))
                         objectName: "tabotaHandCard"
                         width: handSlot.width; info: handSlot.handInfo; battle: true
                         dragCoordinateSpace: table
