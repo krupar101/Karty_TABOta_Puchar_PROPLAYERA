@@ -43,6 +43,8 @@ class Thinker(QRunnable):
 class Bridge(QObject):
     changed = Signal()
     boardChanged = Signal()
+    detailChanged = Signal()
+    volumeChanged = Signal()
     spectrumChanged = Signal()
     soundRequested = Signal(str)
     quitRequested = Signal()
@@ -86,6 +88,10 @@ class Bridge(QObject):
         self.save_timer.setSingleShot(True)
         self.save_timer.setInterval(650)
         self.save_timer.timeout.connect(self.flush_debounced_save)
+        self.settings_save_timer = QTimer(self)
+        self.settings_save_timer.setSingleShot(True)
+        self.settings_save_timer.setInterval(650)
+        self.settings_save_timer.timeout.connect(self.flush_settings)
         self.worker = None
         self._state = {}
         self._battle_board = {}
@@ -96,6 +102,15 @@ class Bridge(QObject):
 
     @Property("QVariantMap", notify=changed)
     def state(self): return self._state
+
+    @Property("QVariantMap", notify=volumeChanged)
+    def volumes(self):
+        return {key: self.store.settings[key] for key in ("volume", "musicVolume")}
+
+    @Property("QVariantMap", notify=detailChanged)
+    def detailState(self):
+        return dict(detail=self._state.get("detail", {}),
+                    detailTarot=self._state.get("detailTarot", False))
 
     @Property("QVariantMap", notify=boardChanged)
     def battleBoard(self): return self._battle_board
@@ -388,7 +403,10 @@ class Bridge(QObject):
             presets=p["presets"] if p else [], draft=self.draft, offerCount=len(self.offer),
             reading=reading, history=history, dialogue=self.dialogue,
             resumable=bool(p and p["match"] and not p["match"]["finished"]),
+            resumableFree=bool(p and p["match"] and not p["match"]["finished"]
+                               and p["match"].get("mode", p["mode"]) == "free"),
             journal=[dict(e, image=self.card(e["portrait"])["image"]) for e in ENCOUNTERS if p and e["id"] in p["completed"]])
+        self.detailChanged.emit()
         self._battle_board = board
         self.boardChanged.emit()
         self.changed.emit()
@@ -441,13 +459,13 @@ class Bridge(QObject):
         # recomputation just to display the already known card.
         self._state["detail"] = self.card(cid)
         self._state["detailTarot"] = self.detail_tarot
-        self.changed.emit()
+        self.detailChanged.emit()
 
     @Slot()
     def closeDetail(self):
         self.detail = ""
         self._state["detail"] = {}
-        self.changed.emit()
+        self.detailChanged.emit()
 
     @Slot()
     def dismiss(self):
@@ -528,6 +546,28 @@ class Bridge(QObject):
         self.dialogue = ""
         self.safe_save()
         self.refresh()
+
+    @Slot()
+    def resumeMatch(self):
+        if self.busy or not self.store.profile:
+            return
+        if self.match and not self.safe_save():
+            return self.refresh()
+        saved = self.store.profile["match"]
+        if saved and not saved["finished"]:
+            self.loadSlot(self.store.data["active"])
+
+    @Slot()
+    def continueCup(self):
+        if self.busy:
+            return
+        p = self.store.profile
+        if not p:
+            return self.navigate("slots")
+        saved = self.match.s if self.match else p["match"]
+        if saved and not saved["finished"] and saved.get("mode", p["mode"]) != "free":
+            return self.resumeMatch()
+        self.campaignMode(False, False)
 
     @Slot(bool, bool)
     def campaignMode(self, hard, free):
@@ -1028,12 +1068,29 @@ class Bridge(QObject):
         if name not in self.store.settings or name == "schema": return
         if name in ("volume", "musicVolume"): value = max(0, min(1, float(value)))
         else: value = bool(value)
+        if self.store.settings[name] == value:
+            return
         self.store.settings[name] = value
+        if name in ("volume", "musicVolume"):
+            # Only audio and the two slider bindings change during a drag.
+            self._state["settings"][name] = value
+            self.volumeChanged.emit()
+            self.settings_save_timer.start()
+            return
         if name not in ("volume", "musicVolume"):
             self.soundRequested.emit("click")
-        try: self.store.write("settings.json", self.store.settings)
-        except OSError as e: self.notice = str(e)
+        self.flush_settings()
         self.refresh()
+
+    def flush_settings(self):
+        self.settings_save_timer.stop()
+        try:
+            self.store.write("settings.json", self.store.settings)
+        except OSError as e:
+            self.notice = str(e)
+            self.refresh()
+            return False
+        return True
 
     @Slot(str)
     def exportData(self, kind):
@@ -1066,6 +1123,8 @@ class Bridge(QObject):
 
     @Slot()
     def quit(self):
+        if self.settings_save_timer.isActive() and not self.flush_settings():
+            return
         # Resolution is computed before playback; saving never serializes half a turn.
         self.safe_save()
         self.save_reading()

@@ -57,14 +57,69 @@ Item {
     Shortcut { sequence: "2"; enabled: !!b.selected.id && !s.busy; onActivated: api.chooseLane(1) }
     Shortcut { sequence: "3"; enabled: !!b.selected.id && !s.busy; onActivated: api.chooseLane(2) }
     Shortcut { sequence: "Ctrl+Z"; enabled: !s.busy; onActivated: api.undo() }
-    Text { x: 0; y: 0; text: "TURA " + b.turn + " / " + b.maxTurns; color: Theme.white; font.pixelSize: 27; font.bold: true; font.letterSpacing: 1 }
+    Card {
+        objectName: "tabotaOpponentCard"
+        x: 0; y: 0; width: 57; lift: false; showTip: false
+        info: ({id: s.encounter.portrait, image: s.encounter.image, name: s.encounter.short})
+        onClicked: api.inspect(info.id)
+    }
+    Text { x: 76; y: 0; text: "TURA " + b.turn + " / " + b.maxTurns; color: Theme.white; font.pixelSize: 27; font.bold: true; font.letterSpacing: 1 }
     BButton { x: 880; y: 0; width: 140; text: "Ⅱ  Pauza"; compact: true; enabled: !s.busy; onClicked: api.navigate("pause") }
-    Text { y: 48; text: "RYWAL  /  " + s.encounter.short.toUpperCase(); color: Theme.red; font.pixelSize: 12; font.letterSpacing: 1 }
+    Text { x: 76; y: 48; text: "RYWAL  /  " + s.encounter.short.toUpperCase(); color: Theme.red; font.pixelSize: 12; font.letterSpacing: 1 }
     Row { x: 720; y: 43; spacing: 7
         Image { width: 18; height: 28; source: s.back; fillMode: Image.PreserveAspectFit; sourceSize.width: 36 }
         Text { anchors.verticalCenter: parent.verticalCenter; text: "Ręka: " + b.enemyHand + "   ·   Talia: " + b.enemyDeck; color: Theme.muted; font.pixelSize: 12 }
     }
-    Text { y: 75; width: 1020; text: b.enemyPreview || ""; color: b.tutorial ? Theme.gold : Theme.muted; font.pixelSize: 11; elide: Text.ElideRight }
+    Text { x: 76; y: 75; width: 944; text: b.enemyPreview || ""; color: b.tutorial ? Theme.gold : Theme.muted; font.pixelSize: 11; elide: Text.ElideRight }
+
+    // Dialogue occupies only the header; the board begins at y=108.
+    FadeBox {
+        id: speechBubble
+        objectName: "tabotaOpponentSpeech"
+        x: 72; y: 0; width: 786; height: 96; z: 30
+        radius: 16; color: "#42235f"; border.color: Theme.purple
+        fadeDuration: s.settings.reduced ? 35 : 220
+        property string incoming: s.dialogue || ""
+        property string pending: ""
+        property string spoken: ""
+        property bool ready: s.screen === "battle" && !b.rulePending && !ruleWindow.visible
+        function showPending() {
+            if (!ready || !pending.length) return
+            spoken = pending
+            pending = ""
+            open = true
+            speechLifetime.restart()
+        }
+        onIncomingChanged: {
+            pending = incoming.trim()
+            if (!pending.length) { open = false; speechLifetime.stop() }
+            else showPending()
+        }
+        onReadyChanged: if (ready) showPending()
+        Component.onCompleted: { pending = incoming.trim(); showPending() }
+        Timer {
+            id: speechLifetime
+            interval: 10000
+            onTriggered: speechBubble.open = false
+        }
+        // A small comic tail points left to the opponent's card.
+        Rectangle {
+            x: -7; y: 34; width: 16; height: 16; rotation: 45
+            color: speechBubble.color; border.color: Theme.purple
+        }
+        Rectangle { x: 1; y: 28; width: 20; height: 32; color: speechBubble.color }
+        Text {
+            x: 22; y: 11; width: parent.width - 44
+            text: s.encounter.short; color: Theme.purple
+            font.pixelSize: 11; font.bold: true
+        }
+        Text {
+            objectName: "tabotaOpponentSpeechText"
+            x: 22; y: 31; width: parent.width - 44; height: 56
+            text: speechBubble.spoken; color: Theme.white
+            font.pixelSize: 17; wrapMode: Text.WordWrap
+        }
+    }
 
     Row { y: 108; spacing: 15
         Repeater { model: 3
@@ -323,7 +378,6 @@ Item {
             contentHeight: planText.implicitHeight; clip: true; ScrollBar.vertical: ScrollBar {}
             Text { id: planText; width: 268; text: b.mulligan ? "WYMIANA KART NA START\n\nKliknij do 2 kart w swojej ręce. Złota ramka pokaże, które zostaną wymienione.\n\nKliknij „Zachowaj rękę i zacznij” lub „Wymień i zacznij”." : displayedLog ? b.log.slice().reverse().join("\n\n") : b.selected.id ? b.selected.name + "\n\n" + b.selected.description + "\n\nWybierz podświetloną strefę." : b.plan.length ? b.plan.map(function(t,i){return (i+1)+". "+t}).join("\n\n") : "Plan jest pusty.\n\nWybierz kartę z ręki i wskaż strefę.\n\nRuchy rozpatrują się naprzemiennie. Pierwszeństwo: " + (b.turn%2 ? "TABO" : "RYWAL") + "."; color: Theme.muted; font.pixelSize: 12; wrapMode: Text.WordWrap; lineHeight: 1.3 }
         }
-        Text { x: 19; y: 560; width: 282; height: 39; text: "„" + s.dialogue + "”"; color: Theme.gold; font.pixelSize: 12; wrapMode: Text.WordWrap; maximumLineCount: 2; elide: Text.ElideRight }
         BButton { x: 19; y: 636; width: 282; height: 44; text: s.busy ? "Pomiń animację" : b.finished ? "Pokaż wynik  →" : b.mulligan ? (b.exchangeCount ? "Wymień " + b.exchangeCount + " i zacznij" : "Zachowaj rękę i zacznij") : "Zakończ turę  →"; primary: true; enabled: !b.choice && (!b.tutorialGuided || b.tutorialPhase === "submit"); onClicked: s.busy ? api.skipAnimation() : b.finished ? api.navigate("result") : api.submit() }
         Text { x: 19; y: 607; width: 282; visible: !b.mulligan && !s.busy && !b.finished
             text: "Zakończ turę: odkryj oba plany i rozegraj ruchy."

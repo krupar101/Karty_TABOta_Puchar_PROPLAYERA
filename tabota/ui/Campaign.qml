@@ -49,6 +49,6 @@ Item {
     Row { y: 704; spacing: 12
         BButton { text: "Kolekcja / talie"; compact: true; onClicked: api.navigate("collection") }
         BButton { text: "Kronika Turnieju"; compact: true; onClicked: api.navigate("journal") }
-        BButton { visible: s.resumable; text: "Wznów zapisany pojedynek"; compact: true; primary: true; onClicked: api.loadSlot(s.activeSlot) }
+        BButton { visible: s.resumable; text: "Wróć do meczu"; compact: true; primary: true; onClicked: api.resumeMatch() }
     }
 }

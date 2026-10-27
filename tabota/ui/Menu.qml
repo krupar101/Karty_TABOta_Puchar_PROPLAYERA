@@ -14,8 +14,10 @@ Item {
         Item { height: 24; width: 1 }
         Text { width: 445; text: "ELTaboBot zapisał cię do turnieju.\nPozostało wygrać 20 wyzwań i zdobyć Złoty Taboret."; color: Theme.muted; font.pixelSize: 19; lineHeight: 1.5 }
         Item { height: 34; width: 1 }
-        BButton { width: 390; height: 60; text: s.profile ? "KONTYNUUJ PUCHAR     →" : "ROZPOCZNIJ PUCHAR     →"; primary: true; onClicked: s.profile ? api.loadSlot(s.activeSlot) : api.navigate("slots") }
+        BButton { width: 390; height: 60; text: s.profile ? "KONTYNUUJ PUCHAR     →" : "ROZPOCZNIJ PUCHAR     →"; primary: true; onClicked: api.continueCup() }
         Item { height: 12; width: 1 }
+        BButton { visible: s.resumableFree; width: 390; height: 50; text: "Wróć do meczu     →"; onClicked: api.resumeMatch() }
+        Item { visible: s.resumableFree; height: 12; width: 1 }
         BButton { width: 390; height: 54; text: "✧     WRÓŻBY Z KART TABOta"; onClicked: api.navigate("fortune") }
         Item { height: 12; width: 1 }
         Row { spacing: 12

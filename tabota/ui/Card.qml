@@ -33,7 +33,7 @@ Item {
         interval: 120
         running: card.lowerHalfHovered && !card.previewActive && card.interactive &&
                  card.faceUp && !card.moving &&
-                 !api.state.detail.id && !api.state.options.length && !api.state.confirmation && !api.state.busy
+                 !api.detailState.detail.id && !api.state.options.length && !api.state.confirmation && !api.state.busy
         onTriggered: {
             card.previewActive = true
             card.previewRequested(card.info)
@@ -308,7 +308,7 @@ Item {
     objectName: "tabotaHoverDetails"
     width: 370
     contentItem: Text { text: detailsTip.text; color: Theme.white; font.pixelSize: 14; wrapMode: Text.WordWrap }
-    visible: card.showTip && !card.onTable && !card.exchangeMode && !card.splitClickDetails && !api.state.detail.id && card.hovered && card.faceUp && !!card.info.name && !card.moving
+    visible: card.showTip && !card.onTable && !card.exchangeMode && !card.splitClickDetails && !api.detailState.detail.id && card.hovered && card.faceUp && !!card.info.name && !card.moving
     delay: card.splitClickDetails ? 180 : 650
     timeout: 7000
     text: (card.info.name || "") + (card.battle ?

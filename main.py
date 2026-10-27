@@ -4,9 +4,12 @@ import os
 from pathlib import Path
 import sys
 
+from tabota import __version__
+
 
 def main():
     parser = argparse.ArgumentParser(description="Karty TABOta: WSZYSCY DO BANA! - Puchar PROPLAYERA")
+    parser.add_argument("--version", action="version", version="%(prog)s " + __version__)
     parser.add_argument("--screenshot", help="Save a PNG screenshot then exit (for UI verification).")
     parser.add_argument("--screen", default="menu", choices=["menu", "map", "battle", "fortune", "reading", "collection", "builder", "settings", "briefing", "help", "journal", "slots", "intro", "history", "result", "ending", "pause"])
     parser.add_argument("--demo", action="store_true", help="Temporary in-memory content for screenshots; use an isolated TABOTA_DATA_DIR.")
@@ -23,6 +26,7 @@ def main():
     from tabota.bridge import Bridge
     app = QApplication(sys.argv[:1])
     app.setApplicationName("Karty TABOta")
+    app.setApplicationVersion(__version__)
     app.setOrganizationName("TABOt")
     for font_file in (ROOT / "tabota/ui/fonts").glob("*.ttf"):
         QFontDatabase.addApplicationFont(str(font_file))
@@ -79,6 +83,7 @@ def main():
         audio = Audio(bridge.store.settings)
         audio.music.spectrumChanged.connect(bridge.updateSpectrum)
         bridge.soundRequested.connect(audio.play)
+        bridge.volumeChanged.connect(audio.apply_volumes)
         bridge.changed.connect(lambda: audio.sync(bridge.screen, bridge.mission))
         audio.sync(bridge.screen, bridge.mission)
     if args.screenshot:

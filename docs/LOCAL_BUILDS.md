@@ -1,3 +1,28 @@
+# Buildy 1.0.1 — 27.10.2026
+
+Gotowe paczki lokalne:
+
+- `dist/TABOt-1.0.1-windows-x86_64.zip`
+- `dist/TABOt-1.0.1-linux-x86_64.tar.gz`
+- `dist/SHA256SUMS-1.0.1.txt`
+
+Linux: Python 3.14, PySide6 6.11.2, PyInstaller 6.22.3.
+Windows: Python 3.12.10, PySide6 6.11.3, PyInstaller 6.22.3 pod GE-Proton 11.
+
+Na obu interpreterach przeszło 105 testów. Gotowe pliki wykonywalne
+uruchomiono i sprawdzono renderowanie planszy. Windows sprawdzono pod Wine;
+nie wykonano testu na natywnym Windowsie. Zgodność ze starszymi dystrybucjami
+Linuksa pozostaje niezweryfikowana. Nie publikowano paczek w sieci.
+
+Logi: `test-artifacts/build-linux-1.0.1.log`,
+`test-artifacts/build-windows-1.0.1.log`. Zrzuty:
+`test-artifacts/packaged-linux-1.0.1-battle.png` i
+`test-artifacts/packaged-windows-1.0.1-battle.png`.
+
+Zmiany i instrukcja uruchomienia: [RELEASE_1.0.1.md](RELEASE_1.0.1.md).
+
+---
+
 # Lokalne buildy Linux i Windows
 
 Data: 26.10.2026. Obie paczki powstały na komputerze z Bazzite 44 x86_64.

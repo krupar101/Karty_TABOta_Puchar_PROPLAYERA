@@ -11,6 +11,7 @@ ApplicationWindow {
     color: Theme.bg
     font.family: Theme.font
     property var s: api.state
+    property var details: api.detailState
     // Retain the last modal contents for the closing fade. The Python bridge
     // clears detail/options immediately after a click; fading blank panels
     // would otherwise flash visibly for a frame.
@@ -32,25 +33,27 @@ ApplicationWindow {
     property string retainedNotice: ""
     onSChanged: {
         if (s.busy || s.options.length || s.confirmation || s.screen !== "battle") quickDetail = ({})
-        if (s.detail && s.detail.id) {
-            quickDetailMode = false
-            quickDetail = ({})
-            retainedDetail = s.detail
-            retainedDetailTarot = !!s.detailTarot
-        }
         if (s.options && s.options.length) retainedOptions = s.options
         if (s.confirmation) retainedConfirmation = s.confirmation
         if (s.notice) retainedNotice = s.notice
     }
-    property var displayDetail: quickDetailMode ? (quickDetail.id ? quickDetail : retainedQuickDetail) : s.detail && s.detail.id ? s.detail : retainedDetail
-    property bool displayDetailTarot: quickDetailMode ? false : s.detail && s.detail.id ? !!s.detailTarot : retainedDetailTarot
+    onDetailsChanged: {
+        if (details.detail && details.detail.id) {
+            quickDetailMode = false
+            quickDetail = ({})
+            retainedDetail = details.detail
+            retainedDetailTarot = !!details.detailTarot
+        }
+    }
+    property var displayDetail: quickDetailMode ? (quickDetail.id ? quickDetail : retainedQuickDetail) : details.detail && details.detail.id ? details.detail : retainedDetail
+    property bool displayDetailTarot: quickDetailMode ? false : details.detail && details.detail.id ? !!details.detailTarot : retainedDetailTarot
     property var displayOptions: s.options && s.options.length ? s.options : retainedOptions
     property string displayConfirmation: s.confirmation || retainedConfirmation
     property string displayNotice: s.notice || retainedNotice
     visibility: s.settings.fullscreen ? Window.FullScreen : Window.Windowed
     onClosing: event => { event.accepted = false; api.quit() }
     Shortcut { sequence: "F11"; onActivated: api.setting("fullscreen", !window.s.settings.fullscreen) }
-    Shortcut { sequence: "Escape"; onActivated: { if (window.s.detail.id) api.closeDetail(); else if(window.s.options.length) api.cancelOptions(); else if(window.s.screen === "battle") api.navigate("pause"); else if(window.s.screen === "pause") api.navigate("battle"); else api.navigate("menu") } }
+    Shortcut { sequence: "Escape"; onActivated: { if (window.details.detail.id) api.closeDetail(); else if(window.s.options.length) api.cancelOptions(); else if(window.s.screen === "battle") api.navigate("pause"); else if(window.s.screen === "pause") api.navigate("battle"); else api.navigate("menu") } }
     Item {
         id: stage
         width: 1440; height: 900
@@ -134,7 +137,7 @@ ApplicationWindow {
             fadeDuration: window.s.settings.reduced ? 35 : window.quickDetailMode ? 90 : 150
             anchors.fill: parent; color: window.quickDetailMode ? "transparent" : "#e3090612"; z: 300
             enabled: open && !window.quickDetailMode
-            open: !!(window.quickDetail.id || (window.s.detail && window.s.detail.id)) && !window.s.options.length && window.s.confirmation === ""
+            open: !!(window.quickDetail.id || (window.details.detail && window.details.detail.id)) && !window.s.options.length && window.s.confirmation === ""
             MouseArea { anchors.fill: parent; onClicked: api.closeDetail() }
             Rectangle {
                 objectName: "tabotaDetailPanel"

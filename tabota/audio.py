@@ -61,6 +61,13 @@ class Audio:
     def sync(self, screen, mission):
         self.music.change(screen, mission)
 
+    def apply_volumes(self):
+        self.music.apply_volume()
+        volume = float(self.settings.get("volume", .4))
+        self.sting_output.setVolume(volume)
+        if self.sink:
+            self.sink.setVolume(volume)
+
     def play(self, kind):
         if not self.settings.get("sound", True): return
         if kind not in CUES: return
