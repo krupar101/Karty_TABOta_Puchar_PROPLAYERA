@@ -1,0 +1,5294 @@
+{
+  "mode": "story",
+  "difficulty": "normal",
+  "gamesPerDuel": 500,
+  "seedOffset": 0,
+  "playerPolicy": "80% normal / 20% easy per turn; public information only",
+  "sourceHashes": {
+    "tabota/engine.py": "e64e5fe3fe861e5602addc26e13f771cf9cebae802bb8c5a3594095ecd4b922d",
+    "tabota/content.py": "4bdfddaced55610dac43bf801d80e96feee0af7beb16ee306a51a1571c5473a5",
+    "Game_Design.md": "e86adbc42b9d6030b2e5c9e02e295f44d1dba880d07d987f543e9765a2654e26",
+    "scripts/audit_campaign.py": "d28b22ab14d42c94d6dbdab361ec9ef174bce93e7287619b977c0b21bd48873b"
+  },
+  "rows": [
+    {
+      "mission": 1,
+      "opponent": "ToTylkoNysmo",
+      "act": 1,
+      "enemyDifficulty": "beginner",
+      "rule": "PRÓBA SEZONOWCA: pojedynek na podstawowych zasadach, bez dodatkowych premii. Plany obu stron są ukryte. Jawne ruchy w turach 1–3 są dostępne tylko podczas nauki gry.",
+      "playerDeck": [
+        "01",
+        "10",
+        "10",
+        "02",
+        "02",
+        "31",
+        "31",
+        "04",
+        "04",
+        "41",
+        "41",
+        "43",
+        "43",
+        "06",
+        "06",
+        "E01",
+        "E03",
+        "E07"
+      ],
+      "enemyDeck": [
+        "10",
+        "10",
+        "11",
+        "21",
+        "04",
+        "04",
+        "40",
+        "40",
+        "06",
+        "06",
+        "07",
+        "08",
+        "08",
+        "09",
+        "09",
+        "E01",
+        "E02",
+        "E18"
+      ],
+      "games": 500,
+      "wins": 341,
+      "losses": 154,
+      "draws": 5,
+      "winRate": 0.682,
+      "imperfectTurns": 437,
+      "failures": [],
+      "winningReplay": {
+        "mission": 1,
+        "seed": 100001,
+        "tutorial": false,
+        "exchange": [],
+        "turns": [
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u1",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u6",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u3",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u7",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u5",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u14",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u15",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                },
+                {
+                  "uid": "u2",
+                  "lane": 2,
+                  "targets": [
+                    "u3"
+                  ],
+                  "dest": 2
+                },
+                {
+                  "uid": "u11",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u10",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u17",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                },
+                {
+                  "uid": "u4",
+                  "lane": 2,
+                  "targets": [
+                    "u14"
+                  ],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u9",
+                  "lane": 2,
+                  "targets": [
+                    "u3"
+                  ],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u13",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u12",
+                  "lane": 1,
+                  "targets": [
+                    "u15"
+                  ],
+                  "dest": -1
+                },
+                {
+                  "uid": "u20",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          }
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            10,
+            11,
+            14
+          ],
+          [
+            10,
+            14,
+            6
+          ]
+        ]
+      }
+    },
+    {
+      "mission": 2,
+      "opponent": "GreedN3",
+      "act": 1,
+      "enemyDifficulty": "beginner",
+      "rule": "PIERWSZE WSPOMNIENIE: pierwsza twoja karta Retro zagrana w meczu otrzymuje +2 Mocy (każda strona osobno).",
+      "playerDeck": [
+        "10",
+        "10",
+        "11",
+        "11",
+        "14",
+        "14",
+        "02",
+        "02",
+        "31",
+        "04",
+        "04",
+        "43",
+        "43",
+        "06",
+        "08",
+        "08",
+        "E01",
+        "E02"
+      ],
+      "enemyDeck": [
+        "11",
+        "11",
+        "13",
+        "16",
+        "16",
+        "23",
+        "27",
+        "27",
+        "31",
+        "31",
+        "41",
+        "41",
+        "07",
+        "09",
+        "09",
+        "E04",
+        "E10",
+        "E17"
+      ],
+      "games": 500,
+      "wins": 464,
+      "losses": 31,
+      "draws": 5,
+      "winRate": 0.928,
+      "imperfectTurns": 403,
+      "failures": [],
+      "winningReplay": {
+        "mission": 2,
+        "seed": 200000,
+        "tutorial": false,
+        "exchange": [],
+        "turns": [
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u2",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u7",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u4",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u10",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u1",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u12",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u13",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                },
+                {
+                  "uid": "u3",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u16",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u5",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                },
+                {
+                  "uid": "u15",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                },
+                {
+                  "uid": "u18",
+                  "lane": 2,
+                  "targets": [
+                    "u13"
+                  ],
+                  "dest": -1
+                },
+                {
+                  "uid": "u11",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u9",
+                  "lane": 2,
+                  "targets": [
+                    "u13"
+                  ],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u20",
+                  "lane": 2,
+                  "targets": [
+                    "u13"
+                  ],
+                  "dest": -1
+                },
+                {
+                  "uid": "u21",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u8",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                },
+                {
+                  "uid": "u22",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                },
+                {
+                  "uid": "u19",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          }
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            12,
+            11,
+            17
+          ],
+          [
+            9,
+            8,
+            15
+          ]
+        ]
+      }
+    },
+    {
+      "mission": 3,
+      "opponent": "Gumbox",
+      "act": 1,
+      "enemyDifficulty": "beginner",
+      "rule": "NIE WIDZĘ A: pierwsza własna jednostka bez litery „A” w nazwie, zagrana na CZACIE w każdej turze, dostaje +1 (symetrycznie).",
+      "playerDeck": [
+        "10",
+        "10",
+        "11",
+        "14",
+        "14",
+        "23",
+        "23",
+        "03",
+        "03",
+        "31",
+        "04",
+        "41",
+        "41",
+        "43",
+        "06",
+        "08",
+        "E02",
+        "E04"
+      ],
+      "enemyDeck": [
+        "17",
+        "02",
+        "02",
+        "21",
+        "24",
+        "29",
+        "29",
+        "30",
+        "30",
+        "32",
+        "48",
+        "48",
+        "49",
+        "05",
+        "05",
+        "E06",
+        "E08",
+        "E18"
+      ],
+      "games": 500,
+      "wins": 447,
+      "losses": 53,
+      "draws": 0,
+      "winRate": 0.894,
+      "imperfectTurns": 429,
+      "failures": [],
+      "winningReplay": {
+        "mission": 3,
+        "seed": 300000,
+        "tutorial": false,
+        "exchange": [
+          "u5"
+        ],
+        "turns": [
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u1",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u10",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u3",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u9",
+                  "lane": 0,
+                  "targets": [
+                    "u1"
+                  ],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u2",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                },
+                {
+                  "uid": "u11",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u13",
+                  "lane": 0,
+                  "targets": [
+                    "u10"
+                  ],
+                  "dest": 1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u14",
+                  "lane": 0,
+                  "targets": [
+                    "u1",
+                    "u2"
+                  ],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u8",
+                  "lane": 2,
+                  "targets": [
+                    "u8"
+                  ],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u16",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                },
+                {
+                  "uid": "u19",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u15",
+                  "lane": 1,
+                  "targets": [
+                    "u13"
+                  ],
+                  "dest": 1
+                },
+                {
+                  "uid": "u6",
+                  "lane": 1,
+                  "targets": [
+                    "u6"
+                  ],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u21",
+                  "lane": 2,
+                  "targets": [
+                    "u11",
+                    "u16"
+                  ],
+                  "dest": -1
+                },
+                {
+                  "uid": "u12",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u7",
+                  "lane": 0,
+                  "targets": [
+                    "u14"
+                  ],
+                  "dest": -1
+                },
+                {
+                  "uid": "u22",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          }
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            13,
+            5,
+            20
+          ],
+          [
+            4,
+            16,
+            10
+          ]
+        ]
+      }
+    },
+    {
+      "mission": 4,
+      "opponent": "MaciekWolf92",
+      "act": 1,
+      "enemyDifficulty": "beginner",
+      "rule": "BACZNOŚĆ 20:30: od tej misji w 4. turze obie strony wybierają Rytuał. Dodatkowo pierwszy Hymn zagrany na STREAM w całym meczu ma +1 (na stronę).",
+      "playerDeck": [
+        "10",
+        "10",
+        "11",
+        "14",
+        "14",
+        "02",
+        "23",
+        "24",
+        "24",
+        "03",
+        "03",
+        "30",
+        "30",
+        "31",
+        "04",
+        "06",
+        "E03",
+        "E06"
+      ],
+      "enemyDeck": [
+        "13",
+        "13",
+        "19",
+        "19",
+        "03",
+        "39",
+        "43",
+        "43",
+        "45",
+        "45",
+        "46",
+        "06",
+        "06",
+        "08",
+        "09",
+        "E04",
+        "E11",
+        "E19"
+      ],
+      "games": 500,
+      "wins": 391,
+      "losses": 103,
+      "draws": 6,
+      "winRate": 0.782,
+      "imperfectTurns": 405,
+      "failures": [],
+      "winningReplay": {
+        "mission": 4,
+        "seed": 400000,
+        "tutorial": false,
+        "exchange": [
+          "u1"
+        ],
+        "turns": [
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u4",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u6",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u3",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u13",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u2",
+                  "lane": 0,
+                  "targets": [
+                    "u4"
+                  ],
+                  "dest": -1
+                },
+                {
+                  "uid": "u14",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u8",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "special": "hymn",
+                  "lane": 2,
+                  "targets": []
+                },
+                {
+                  "uid": "u12",
+                  "lane": 0,
+                  "targets": [
+                    "u4",
+                    "u2"
+                  ],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "special": "hymn",
+                  "lane": 0,
+                  "targets": []
+                },
+                {
+                  "uid": "u9",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u18",
+                  "lane": 2,
+                  "targets": [
+                    "u14"
+                  ],
+                  "dest": -1
+                },
+                {
+                  "uid": "u11",
+                  "lane": 2,
+                  "targets": [
+                    "u18"
+                  ],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u10",
+                  "lane": 0,
+                  "targets": [
+                    "u8",
+                    "u10"
+                  ],
+                  "dest": -1
+                },
+                {
+                  "uid": "u19",
+                  "lane": 0,
+                  "targets": [
+                    "u8"
+                  ],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u20",
+                  "lane": 0,
+                  "targets": [
+                    "u2"
+                  ],
+                  "dest": -1
+                },
+                {
+                  "uid": "u5",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u21",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                },
+                {
+                  "uid": "u17",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          }
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            20,
+            7,
+            14
+          ],
+          [
+            18,
+            6,
+            7
+          ]
+        ]
+      }
+    },
+    {
+      "mission": 5,
+      "opponent": "Jillie_Studio",
+      "act": 1,
+      "enemyDifficulty": "beginner",
+      "rule": "LAWINA EMOTEK: pierwsza jednostka Widz zagrana przez każdą stronę na CZAT w każdej turze ma +1; kolejne w tej samej turze bez bonusu.",
+      "playerDeck": [
+        "10",
+        "10",
+        "11",
+        "11",
+        "13",
+        "13",
+        "24",
+        "30",
+        "31",
+        "39",
+        "39",
+        "04",
+        "41",
+        "43",
+        "06",
+        "08",
+        "E07",
+        "E08"
+      ],
+      "enemyDeck": [
+        "10",
+        "10",
+        "18",
+        "18",
+        "22",
+        "22",
+        "26",
+        "26",
+        "50",
+        "52",
+        "06",
+        "06",
+        "08",
+        "09",
+        "09",
+        "E16",
+        "E19",
+        "E20"
+      ],
+      "games": 500,
+      "wins": 430,
+      "losses": 66,
+      "draws": 4,
+      "winRate": 0.86,
+      "imperfectTurns": 400,
+      "failures": [],
+      "winningReplay": {
+        "mission": 5,
+        "seed": 500000,
+        "tutorial": false,
+        "exchange": [
+          "u3"
+        ],
+        "turns": [
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u1",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u7",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u2",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              []
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u11",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u6",
+                  "lane": 0,
+                  "targets": [
+                    "u7"
+                  ],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "special": "hymn",
+                  "lane": 2,
+                  "targets": []
+                },
+                {
+                  "uid": "u12",
+                  "lane": 0,
+                  "targets": [
+                    "u11"
+                  ],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "special": "hymn",
+                  "lane": 2,
+                  "targets": []
+                },
+                {
+                  "uid": "u17",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                },
+                {
+                  "uid": "u10",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u14",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                },
+                {
+                  "uid": "u16",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u13",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u22",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                },
+                {
+                  "uid": "u5",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                },
+                {
+                  "uid": "u4",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u19",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                },
+                {
+                  "uid": "u15",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          }
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            15,
+            7,
+            18
+          ],
+          [
+            8,
+            17,
+            13
+          ]
+        ]
+      }
+    },
+    {
+      "mission": 6,
+      "opponent": "QrusKnur",
+      "act": 2,
+      "enemyDifficulty": "casual",
+      "rule": "POSTAĆ ENIGMATYCZNA: po turach 3 i 5 każda strona dostaje znacznik +2 w swojej strefie z najmniejszą liczbą WŁASNYCH jednostek, o ile jest tam co najmniej 1 jednostka; remis rozstrzyga kolejność STREAM→CZAT→ZAPLECZE.",
+      "playerDeck": [
+        "11",
+        "02",
+        "03",
+        "30",
+        "39",
+        "04",
+        "41",
+        "42",
+        "42",
+        "43",
+        "45",
+        "45",
+        "06",
+        "08",
+        "09",
+        "09",
+        "E01",
+        "E09"
+      ],
+      "enemyDeck": [
+        "10",
+        "10",
+        "12",
+        "12",
+        "17",
+        "02",
+        "02",
+        "21",
+        "29",
+        "30",
+        "30",
+        "48",
+        "49",
+        "49",
+        "07",
+        "E10",
+        "E11",
+        "E15"
+      ],
+      "games": 500,
+      "wins": 358,
+      "losses": 132,
+      "draws": 10,
+      "winRate": 0.716,
+      "imperfectTurns": 403,
+      "failures": [],
+      "winningReplay": {
+        "mission": 6,
+        "seed": 600000,
+        "tutorial": false,
+        "exchange": [
+          "u5"
+        ],
+        "turns": [
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u2",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u8",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u4",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u10",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u12",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u15",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "special": "hymn",
+                  "lane": 1,
+                  "targets": []
+                },
+                {
+                  "uid": "u11",
+                  "lane": 0,
+                  "targets": [
+                    "u2",
+                    "u12"
+                  ],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "special": "hymn",
+                  "lane": 0,
+                  "targets": []
+                },
+                {
+                  "uid": "u9",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u3",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                },
+                {
+                  "uid": "u1",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u17",
+                  "lane": 0,
+                  "targets": [
+                    "u2"
+                  ],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u18",
+                  "lane": 0,
+                  "targets": [
+                    "u2",
+                    "u12"
+                  ],
+                  "dest": -1
+                },
+                {
+                  "uid": "u20",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u7",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                },
+                {
+                  "uid": "u22",
+                  "lane": 2,
+                  "targets": [
+                    "u1"
+                  ],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          }
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            21,
+            10,
+            11
+          ],
+          [
+            17,
+            7,
+            15
+          ]
+        ]
+      }
+    },
+    {
+      "mission": 7,
+      "opponent": "Pestarz",
+      "act": 2,
+      "enemyDifficulty": "casual",
+      "rule": "NOCNA META: pierwsza jednostka zagrana przez każdą stronę na ZAPLECZE w turze 1–3 otrzymuje +1. Jednorazowo na stronę w całym meczu.",
+      "playerDeck": [
+        "10",
+        "11",
+        "12",
+        "12",
+        "02",
+        "02",
+        "30",
+        "30",
+        "41",
+        "41",
+        "42",
+        "43",
+        "48",
+        "48",
+        "06",
+        "08",
+        "E06",
+        "E10"
+      ],
+      "enemyDeck": [
+        "12",
+        "12",
+        "17",
+        "17",
+        "02",
+        "02",
+        "21",
+        "21",
+        "24",
+        "24",
+        "29",
+        "30",
+        "35",
+        "48",
+        "48",
+        "E13",
+        "E17",
+        "E23"
+      ],
+      "games": 500,
+      "wins": 365,
+      "losses": 129,
+      "draws": 6,
+      "winRate": 0.73,
+      "imperfectTurns": 422,
+      "failures": [],
+      "winningReplay": {
+        "mission": 7,
+        "seed": 700000,
+        "tutorial": false,
+        "exchange": [],
+        "turns": [
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u3",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u9",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u11",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u8",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u1",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u10",
+                  "lane": 0,
+                  "targets": [
+                    "u9"
+                  ],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "special": "hymn",
+                  "lane": 0,
+                  "targets": []
+                },
+                {
+                  "uid": "u4",
+                  "lane": 0,
+                  "targets": [
+                    "u9"
+                  ],
+                  "dest": -1
+                },
+                {
+                  "uid": "u2",
+                  "lane": 0,
+                  "targets": [
+                    "u11"
+                  ],
+                  "dest": 1
+                }
+              ],
+              [
+                {
+                  "special": "hymn",
+                  "lane": 1,
+                  "targets": []
+                },
+                {
+                  "uid": "u7",
+                  "lane": 2,
+                  "targets": [
+                    "u1"
+                  ],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u13",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                },
+                {
+                  "uid": "u15",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u16",
+                  "lane": 0,
+                  "targets": [
+                    "u4"
+                  ],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u19",
+                  "lane": 0,
+                  "targets": [
+                    "u9"
+                  ],
+                  "dest": -1
+                },
+                {
+                  "uid": "u17",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u18",
+                  "lane": 1,
+                  "targets": [
+                    "u11"
+                  ],
+                  "dest": -1
+                },
+                {
+                  "uid": "u12",
+                  "lane": 2,
+                  "targets": [
+                    "u7"
+                  ],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          }
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            12,
+            7,
+            15
+          ],
+          [
+            9,
+            9,
+            15
+          ]
+        ]
+      }
+    },
+    {
+      "mission": 8,
+      "opponent": "Krisuroku",
+      "act": 2,
+      "enemyDifficulty": "casual",
+      "rule": "SIEMA KRISUROKU: pierwszy koszt-3 zagrany przez każdą stronę na STREAM w każdej turze daje +1 Mocy swojej jednostce.",
+      "playerDeck": [
+        "10",
+        "11",
+        "14",
+        "14",
+        "21",
+        "21",
+        "23",
+        "03",
+        "31",
+        "37",
+        "37",
+        "39",
+        "41",
+        "42",
+        "48",
+        "06",
+        "E10",
+        "E11"
+      ],
+      "enemyDeck": [
+        "12",
+        "15",
+        "17",
+        "17",
+        "02",
+        "02",
+        "21",
+        "21",
+        "29",
+        "30",
+        "30",
+        "48",
+        "48",
+        "49",
+        "05",
+        "E05",
+        "E10",
+        "E13"
+      ],
+      "games": 500,
+      "wins": 441,
+      "losses": 56,
+      "draws": 3,
+      "winRate": 0.882,
+      "imperfectTurns": 423,
+      "failures": [],
+      "winningReplay": {
+        "mission": 8,
+        "seed": 800000,
+        "tutorial": false,
+        "exchange": [
+          "u3"
+        ],
+        "turns": [
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u1",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u8",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u11",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u10",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u12",
+                  "lane": 2,
+                  "targets": [
+                    "u1"
+                  ],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u13",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "special": "hymn",
+                  "lane": 0,
+                  "targets": []
+                },
+                {
+                  "uid": "u2",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "special": "hymn",
+                  "lane": 1,
+                  "targets": []
+                },
+                {
+                  "uid": "u15",
+                  "lane": 1,
+                  "targets": [
+                    "u11"
+                  ],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u16",
+                  "lane": 1,
+                  "targets": [
+                    "u11"
+                  ],
+                  "dest": -1
+                },
+                {
+                  "uid": "u5",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u7",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                },
+                {
+                  "uid": "u9",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                },
+                {
+                  "uid": "u6",
+                  "lane": 0,
+                  "targets": [
+                    "u7"
+                  ],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u21",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                },
+                {
+                  "uid": "u20",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                },
+                {
+                  "uid": "u18",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u17",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                },
+                {
+                  "uid": "u22",
+                  "lane": 0,
+                  "targets": [
+                    "u9"
+                  ],
+                  "dest": 1
+                }
+              ]
+            ],
+            "discards": []
+          }
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            18,
+            17,
+            8
+          ],
+          [
+            9,
+            14,
+            7
+          ]
+        ]
+      }
+    },
+    {
+      "mission": 9,
+      "opponent": "Cydyn",
+      "act": 2,
+      "enemyDifficulty": "casual",
+      "rule": "BLIŹNIACZY PRZYDZIAŁ: po rozpatrzeniu tury 3, jeżeli na CZACIE są wolne sloty, każda strona otrzymuje żeton BLIŹNIAK 1 Mocy (jeżeli brak miejsca, nie otrzymuje).",
+      "playerDeck": [
+        "11",
+        "12",
+        "13",
+        "17",
+        "17",
+        "24",
+        "29",
+        "29",
+        "03",
+        "31",
+        "37",
+        "04",
+        "41",
+        "43",
+        "45",
+        "06",
+        "E06",
+        "E12"
+      ],
+      "enemyDeck": [
+        "10",
+        "18",
+        "18",
+        "22",
+        "22",
+        "42",
+        "26",
+        "50",
+        "50",
+        "52",
+        "52",
+        "06",
+        "06",
+        "09",
+        "09",
+        "E03",
+        "E17",
+        "E22"
+      ],
+      "games": 500,
+      "wins": 428,
+      "losses": 66,
+      "draws": 6,
+      "winRate": 0.856,
+      "imperfectTurns": 392,
+      "failures": [],
+      "winningReplay": {
+        "mission": 9,
+        "seed": 900000,
+        "tutorial": false,
+        "exchange": [
+          "u2"
+        ],
+        "turns": [
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u1",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u10",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u3",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u6",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u12",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u7",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "special": "hymn",
+                  "lane": 1,
+                  "targets": []
+                },
+                {
+                  "uid": "u11",
+                  "lane": 1,
+                  "targets": [
+                    "u3"
+                  ],
+                  "dest": -1
+                },
+                {
+                  "uid": "u18",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "special": "hymn",
+                  "lane": 0,
+                  "targets": []
+                },
+                {
+                  "uid": "u8",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                },
+                {
+                  "uid": "u19",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u20",
+                  "lane": 0,
+                  "targets": [
+                    "u16"
+                  ],
+                  "dest": 0
+                },
+                {
+                  "uid": "u14",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u15",
+                  "lane": 2,
+                  "targets": [
+                    "u19"
+                  ],
+                  "dest": -1
+                },
+                {
+                  "uid": "u13",
+                  "lane": 0,
+                  "targets": [
+                    "u8"
+                  ],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u4",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                },
+                {
+                  "uid": "u23",
+                  "lane": 2,
+                  "targets": [
+                    "u18"
+                  ],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u24",
+                  "lane": 1,
+                  "targets": [
+                    "u10"
+                  ],
+                  "dest": 0
+                },
+                {
+                  "uid": "u9",
+                  "lane": 0,
+                  "targets": [
+                    "u14"
+                  ],
+                  "dest": 1
+                }
+              ]
+            ],
+            "discards": []
+          }
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            9,
+            21,
+            16
+          ],
+          [
+            13,
+            10,
+            6
+          ]
+        ]
+      }
+    },
+    {
+      "mission": 10,
+      "opponent": "Wampir z Podlasia",
+      "act": 2,
+      "enemyDifficulty": "casual",
+      "rule": "NOC: od początku tury 5 pierwsza własna jednostka Horror zagrana na STREAM w turze 5 lub 6 otrzymuje +2 (osobno dla każdej strony, raz na mecz).",
+      "playerDeck": [
+        "11",
+        "12",
+        "17",
+        "02",
+        "21",
+        "28",
+        "28",
+        "43",
+        "39",
+        "04",
+        "04",
+        "41",
+        "43",
+        "50",
+        "06",
+        "10",
+        "24",
+        "E13"
+      ],
+      "enemyDeck": [
+        "13",
+        "18",
+        "31",
+        "31",
+        "33",
+        "33",
+        "34",
+        "35",
+        "35",
+        "36",
+        "36",
+        "37",
+        "37",
+        "38",
+        "48",
+        "E08",
+        "E11",
+        "E18"
+      ],
+      "games": 500,
+      "wins": 344,
+      "losses": 149,
+      "draws": 7,
+      "winRate": 0.688,
+      "imperfectTurns": 428,
+      "failures": [],
+      "winningReplay": {
+        "mission": 10,
+        "seed": 1000000,
+        "tutorial": false,
+        "exchange": [],
+        "turns": [
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u4",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u9",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u1",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u6",
+                  "lane": 2,
+                  "targets": [
+                    "u6"
+                  ],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u2",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u8",
+                  "lane": 0,
+                  "targets": [
+                    "u1"
+                  ],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "special": "hymn",
+                  "lane": 0,
+                  "targets": []
+                },
+                {
+                  "uid": "u13",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "special": "hymn",
+                  "lane": 1,
+                  "targets": []
+                },
+                {
+                  "uid": "u17",
+                  "lane": 0,
+                  "targets": [
+                    "u9"
+                  ],
+                  "dest": 2
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u16",
+                  "lane": 0,
+                  "targets": [
+                    "u4",
+                    "u1"
+                  ],
+                  "dest": -1
+                },
+                {
+                  "uid": "u18",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u12",
+                  "lane": 2,
+                  "targets": [
+                    "u9"
+                  ],
+                  "dest": -1
+                },
+                {
+                  "uid": "u7",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u3",
+                  "lane": 2,
+                  "targets": [
+                    "u2"
+                  ],
+                  "dest": -1
+                },
+                {
+                  "uid": "u5",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                },
+                {
+                  "uid": "u11",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u21",
+                  "lane": 0,
+                  "targets": [
+                    "u17"
+                  ],
+                  "dest": -1
+                },
+                {
+                  "uid": "u14",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                },
+                {
+                  "uid": "u19",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          }
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            15,
+            12,
+            13
+          ],
+          [
+            13,
+            5,
+            17
+          ]
+        ]
+      }
+    },
+    {
+      "mission": 11,
+      "opponent": "B4Nork",
+      "act": 3,
+      "enemyDifficulty": "easy",
+      "rule": "WERTYKALNOŚĆ: pierwsza własna jednostka PRZESUNIĘTA w meczu otrzymuje +2 Mocy (każda strona osobno).",
+      "playerDeck": [
+        "11",
+        "11",
+        "14",
+        "02",
+        "28",
+        "35",
+        "37",
+        "37",
+        "38",
+        "38",
+        "41",
+        "43",
+        "43",
+        "44",
+        "08",
+        "09",
+        "E11",
+        "E14"
+      ],
+      "enemyDeck": [
+        "12",
+        "12",
+        "17",
+        "02",
+        "02",
+        "21",
+        "21",
+        "24",
+        "29",
+        "29",
+        "30",
+        "30",
+        "46",
+        "48",
+        "48",
+        "E03",
+        "E11",
+        "E13"
+      ],
+      "games": 500,
+      "wins": 289,
+      "losses": 198,
+      "draws": 13,
+      "winRate": 0.578,
+      "imperfectTurns": 417,
+      "failures": [],
+      "winningReplay": {
+        "mission": 11,
+        "seed": 1100003,
+        "tutorial": false,
+        "exchange": [],
+        "turns": [
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u4",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u7",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u5",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u8",
+                  "lane": 1,
+                  "targets": [
+                    "u7"
+                  ],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u3",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u6",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "special": "hymn",
+                  "lane": 0,
+                  "targets": []
+                },
+                {
+                  "uid": "u11",
+                  "lane": 0,
+                  "targets": [
+                    "u6"
+                  ],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "special": "hymn",
+                  "lane": 1,
+                  "targets": []
+                },
+                {
+                  "uid": "u10",
+                  "lane": 1,
+                  "targets": [
+                    "u3"
+                  ],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u1",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                },
+                {
+                  "uid": "u2",
+                  "lane": 1,
+                  "targets": [
+                    "u5"
+                  ],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u18",
+                  "lane": 0,
+                  "targets": [
+                    "u8"
+                  ],
+                  "dest": 0
+                },
+                {
+                  "uid": "u14",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u19",
+                  "lane": 0,
+                  "targets": [
+                    "u4"
+                  ],
+                  "dest": -1
+                },
+                {
+                  "uid": "u13",
+                  "lane": 1,
+                  "targets": [
+                    "u3"
+                  ],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u16",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          }
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            17,
+            19,
+            4
+          ],
+          [
+            15,
+            13,
+            7
+          ]
+        ]
+      }
+    },
+    {
+      "mission": 12,
+      "opponent": "Kierowca Śmigłowca",
+      "act": 3,
+      "enemyDifficulty": "easy",
+      "rule": "LOT OSTATNIEJ SZANSY: w turze 4 każda strona dostaje jednorazowy DARMOWY przesuw jednej swojej jednostki do dowolnej strefy z miejscem; może pominąć.",
+      "playerDeck": [
+        "10",
+        "17",
+        "17",
+        "02",
+        "21",
+        "24",
+        "27",
+        "27",
+        "28",
+        "29",
+        "31",
+        "33",
+        "33",
+        "04",
+        "43",
+        "50",
+        "E08",
+        "E15"
+      ],
+      "enemyDeck": [
+        "25",
+        "28",
+        "28",
+        "31",
+        "31",
+        "36",
+        "36",
+        "37",
+        "37",
+        "38",
+        "39",
+        "04",
+        "04",
+        "47",
+        "08",
+        "E06",
+        "E17",
+        "E23"
+      ],
+      "games": 500,
+      "wins": 246,
+      "losses": 242,
+      "draws": 12,
+      "winRate": 0.492,
+      "imperfectTurns": 430,
+      "failures": [],
+      "winningReplay": {
+        "mission": 12,
+        "seed": 1200000,
+        "tutorial": false,
+        "exchange": [
+          "u1"
+        ],
+        "turns": [
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u4",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u6",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u5",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u10",
+                  "lane": 1,
+                  "targets": [
+                    "u6"
+                  ],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u11",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u7",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "special": "flight",
+                  "lane": 1,
+                  "dest": 2,
+                  "targets": [
+                    "u4"
+                  ]
+                },
+                {
+                  "special": "hymn",
+                  "lane": 0,
+                  "targets": []
+                },
+                {
+                  "uid": "u2",
+                  "lane": 0,
+                  "targets": [
+                    "u5"
+                  ],
+                  "dest": 1
+                },
+                {
+                  "uid": "u17",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "special": "flight",
+                  "lane": 1,
+                  "dest": 2,
+                  "targets": [
+                    "u6"
+                  ]
+                },
+                {
+                  "special": "hymn",
+                  "lane": 0,
+                  "targets": []
+                },
+                {
+                  "uid": "u9",
+                  "lane": 1,
+                  "targets": [
+                    "u16"
+                  ],
+                  "dest": 1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u3",
+                  "lane": 2,
+                  "targets": [
+                    "u4"
+                  ],
+                  "dest": -1
+                },
+                {
+                  "uid": "u12",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u18",
+                  "lane": 1,
+                  "targets": [
+                    "u10",
+                    "u16"
+                  ],
+                  "dest": -1
+                },
+                {
+                  "uid": "u8",
+                  "lane": 1,
+                  "targets": [
+                    "u18"
+                  ],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u21",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                },
+                {
+                  "uid": "u14",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u13",
+                  "lane": 2,
+                  "targets": [
+                    "u7"
+                  ],
+                  "dest": 2
+                },
+                {
+                  "uid": "u22",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          }
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            13,
+            20,
+            8
+          ],
+          [
+            8,
+            18,
+            13
+          ]
+        ]
+      }
+    },
+    {
+      "mission": 13,
+      "opponent": "Meeefjuuu",
+      "act": 3,
+      "enemyDifficulty": "easy",
+      "rule": "BIS: jeżeli wybierzesz Rytuał HYMN w turze 4, jego znacznik daje +5 zamiast +3 (na obie strony).",
+      "playerDeck": [
+        "11",
+        "12",
+        "02",
+        "24",
+        "25",
+        "25",
+        "33",
+        "35",
+        "36",
+        "36",
+        "37",
+        "37",
+        "39",
+        "41",
+        "43",
+        "06",
+        "E05",
+        "E16"
+      ],
+      "enemyDeck": [
+        "13",
+        "13",
+        "18",
+        "19",
+        "19",
+        "02",
+        "03",
+        "39",
+        "43",
+        "43",
+        "45",
+        "45",
+        "46",
+        "52",
+        "06",
+        "E03",
+        "E06",
+        "E08"
+      ],
+      "games": 500,
+      "wins": 276,
+      "losses": 218,
+      "draws": 6,
+      "winRate": 0.552,
+      "imperfectTurns": 425,
+      "failures": [],
+      "winningReplay": {
+        "mission": 13,
+        "seed": 1300000,
+        "tutorial": false,
+        "exchange": [
+          "u2"
+        ],
+        "turns": [
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u4",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u9",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u1",
+                  "lane": 1,
+                  "targets": [
+                    "u4"
+                  ],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u8",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u11",
+                  "lane": 1,
+                  "targets": [
+                    "u11"
+                  ],
+                  "dest": 2
+                }
+              ],
+              [
+                {
+                  "uid": "u6",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "special": "hymn",
+                  "lane": 1,
+                  "targets": []
+                },
+                {
+                  "uid": "u12",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                },
+                {
+                  "uid": "u14",
+                  "lane": 2,
+                  "targets": [
+                    "u11"
+                  ],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "special": "hymn",
+                  "lane": 2,
+                  "targets": []
+                },
+                {
+                  "uid": "u15",
+                  "lane": 1,
+                  "targets": [
+                    "u9"
+                  ],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u18",
+                  "lane": 0,
+                  "targets": [
+                    "u12"
+                  ],
+                  "dest": 1
+                },
+                {
+                  "uid": "u3",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u19",
+                  "lane": 2,
+                  "targets": [
+                    "u15",
+                    "u19"
+                  ],
+                  "dest": -1
+                },
+                {
+                  "uid": "u13",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u20",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                },
+                {
+                  "uid": "u16",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u17",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          }
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            4,
+            20,
+            18
+          ],
+          [
+            5,
+            19,
+            15
+          ]
+        ]
+      }
+    },
+    {
+      "mission": 14,
+      "opponent": "AL_PSX",
+      "act": 3,
+      "enemyDifficulty": "easy",
+      "rule": "WERYFIKACJA PŁYT: pierwsza jednostka Retro zagrana na ZAPLECZU w meczu otrzymuje Ochronę (oddzielnie dla każdej strony).",
+      "playerDeck": [
+        "10",
+        "12",
+        "13",
+        "19",
+        "19",
+        "02",
+        "21",
+        "24",
+        "25",
+        "27",
+        "30",
+        "31",
+        "04",
+        "46",
+        "08",
+        "08",
+        "E16",
+        "E17"
+      ],
+      "enemyDeck": [
+        "11",
+        "11",
+        "16",
+        "16",
+        "17",
+        "23",
+        "23",
+        "25",
+        "25",
+        "27",
+        "27",
+        "31",
+        "31",
+        "41",
+        "50",
+        "E07",
+        "21",
+        "E15"
+      ],
+      "games": 500,
+      "wins": 380,
+      "losses": 108,
+      "draws": 12,
+      "winRate": 0.76,
+      "imperfectTurns": 412,
+      "failures": [],
+      "winningReplay": {
+        "mission": 14,
+        "seed": 1400000,
+        "tutorial": false,
+        "exchange": [],
+        "turns": [
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u1",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u8",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u2",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u12",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u5",
+                  "lane": 1,
+                  "targets": [
+                    "u5"
+                  ],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u7",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "special": "hymn",
+                  "lane": 2,
+                  "targets": []
+                },
+                {
+                  "uid": "u11",
+                  "lane": 0,
+                  "targets": [
+                    "u5",
+                    "u11"
+                  ],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "special": "hymn",
+                  "lane": 0,
+                  "targets": []
+                },
+                {
+                  "uid": "u16",
+                  "lane": 1,
+                  "targets": [
+                    "u16"
+                  ],
+                  "dest": 2
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u3",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                },
+                {
+                  "uid": "u4",
+                  "lane": 1,
+                  "targets": [
+                    "u5"
+                  ],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u18",
+                  "lane": 2,
+                  "targets": [
+                    "u18"
+                  ],
+                  "dest": 1
+                },
+                {
+                  "uid": "u10",
+                  "lane": 0,
+                  "targets": [
+                    "u11"
+                  ],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u15",
+                  "lane": 0,
+                  "targets": [
+                    "u15"
+                  ],
+                  "dest": 1
+                },
+                {
+                  "uid": "u13",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u6",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                },
+                {
+                  "uid": "u14",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          }
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            11,
+            17,
+            12
+          ],
+          [
+            10,
+            15,
+            9
+          ]
+        ]
+      }
+    },
+    {
+      "mission": 15,
+      "opponent": "InfinityPotato0",
+      "act": 3,
+      "enemyDifficulty": "easy",
+      "rule": "SOLANKA KOMENTARZY: po turze 4 w KAŻDEJ strefie, w której są co najmniej 2 jednostki danej strony, najsłabsza jednostka tej strony dostaje −1 (remis wybiera starszą). Każda strona jest rozliczana osobno.",
+      "playerDeck": [
+        "11",
+        "16",
+        "16",
+        "19",
+        "02",
+        "02",
+        "25",
+        "26",
+        "26",
+        "27",
+        "28",
+        "37",
+        "38",
+        "42",
+        "43",
+        "44",
+        "E13",
+        "E18"
+      ],
+      "enemyDeck": [
+        "12",
+        "12",
+        "15",
+        "17",
+        "17",
+        "02",
+        "02",
+        "21",
+        "29",
+        "30",
+        "30",
+        "48",
+        "48",
+        "49",
+        "49",
+        "E04",
+        "E07",
+        "E23"
+      ],
+      "games": 500,
+      "wins": 311,
+      "losses": 179,
+      "draws": 10,
+      "winRate": 0.622,
+      "imperfectTurns": 402,
+      "failures": [],
+      "winningReplay": {
+        "mission": 15,
+        "seed": 1500000,
+        "tutorial": false,
+        "exchange": [
+          "u2"
+        ],
+        "turns": [
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u4",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u6",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u1",
+                  "lane": 0,
+                  "targets": [
+                    "u4"
+                  ],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u10",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u11",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u8",
+                  "lane": 1,
+                  "targets": [
+                    "u10"
+                  ],
+                  "dest": 2
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "special": "hymn",
+                  "lane": 1,
+                  "targets": []
+                },
+                {
+                  "uid": "u12",
+                  "lane": 2,
+                  "targets": [
+                    "u12"
+                  ],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "special": "hymn",
+                  "lane": 1,
+                  "targets": []
+                },
+                {
+                  "uid": "u13",
+                  "lane": 0,
+                  "targets": [
+                    "u1"
+                  ],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u14",
+                  "lane": 0,
+                  "targets": [
+                    "u13"
+                  ],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u18",
+                  "lane": 1,
+                  "targets": [
+                    "u11"
+                  ],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u3",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                },
+                {
+                  "uid": "u19",
+                  "lane": 0,
+                  "targets": [
+                    "u14"
+                  ],
+                  "dest": 1
+                },
+                {
+                  "uid": "u5",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u7",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                },
+                {
+                  "uid": "u15",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                },
+                {
+                  "uid": "u22",
+                  "lane": 0,
+                  "targets": [
+                    "u13"
+                  ],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          }
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            7,
+            18,
+            10
+          ],
+          [
+            10,
+            14,
+            7
+          ]
+        ]
+      }
+    },
+    {
+      "mission": 16,
+      "opponent": "Pierd0la",
+      "act": 4,
+      "enemyDifficulty": "normal",
+      "rule": "JESZCZE JEDEN FINAŁ: mecz trwa 7 tur zamiast 6. W 7. turze limit Energii wynosi 7, każdy dobiera dodatkową kartę, Finały uruchamiają się po turze 7.",
+      "playerDeck": [
+        "14",
+        "02",
+        "21",
+        "21",
+        "25",
+        "29",
+        "30",
+        "40",
+        "45",
+        "46",
+        "48",
+        "49",
+        "49",
+        "05",
+        "06",
+        "09",
+        "E07",
+        "E19"
+      ],
+      "enemyDeck": [
+        "10",
+        "14",
+        "15",
+        "18",
+        "18",
+        "22",
+        "22",
+        "23",
+        "26",
+        "26",
+        "52",
+        "06",
+        "06",
+        "09",
+        "09",
+        "E11",
+        "E15",
+        "E16"
+      ],
+      "games": 500,
+      "wins": 269,
+      "losses": 218,
+      "draws": 13,
+      "winRate": 0.538,
+      "imperfectTurns": 464,
+      "failures": [],
+      "winningReplay": {
+        "mission": 16,
+        "seed": 1600000,
+        "tutorial": false,
+        "exchange": [
+          "u1"
+        ],
+        "turns": [
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u2",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u7",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u3",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u9",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u4",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                },
+                {
+                  "uid": "u12",
+                  "lane": 1,
+                  "targets": [
+                    "u3"
+                  ],
+                  "dest": 0
+                }
+              ],
+              [
+                {
+                  "uid": "u8",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "special": "hymn",
+                  "lane": 0,
+                  "targets": []
+                },
+                {
+                  "uid": "u16",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                },
+                {
+                  "uid": "u14",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "special": "hymn",
+                  "lane": 0,
+                  "targets": []
+                },
+                {
+                  "uid": "u13",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u18",
+                  "lane": 1,
+                  "targets": [
+                    "u18"
+                  ],
+                  "dest": 2
+                },
+                {
+                  "uid": "u5",
+                  "lane": 0,
+                  "targets": [
+                    "u7"
+                  ],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u10",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                },
+                {
+                  "uid": "u15",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u11",
+                  "lane": 1,
+                  "targets": [
+                    "u8"
+                  ],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u19",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                },
+                {
+                  "uid": "u6",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u20",
+                  "lane": 0,
+                  "targets": [
+                    "u9"
+                  ],
+                  "dest": -1
+                },
+                {
+                  "uid": "u22",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u23",
+                  "lane": 2,
+                  "targets": [
+                    "u13"
+                  ],
+                  "dest": -1
+                },
+                {
+                  "uid": "u21",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          }
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            14,
+            15,
+            15
+          ],
+          [
+            11,
+            13,
+            13
+          ]
+        ]
+      }
+    },
+    {
+      "mission": 17,
+      "opponent": "LtAsiaa",
+      "act": 4,
+      "enemyDifficulty": "normal",
+      "rule": "DECYZJA MODERACJI: pierwsza jednostka Moderacji wystawiona na CZACIE w meczu dostaje Ochronę i +1 Mocy (każda strona osobno).",
+      "playerDeck": [
+        "11",
+        "13",
+        "02",
+        "22",
+        "22",
+        "23",
+        "24",
+        "25",
+        "31",
+        "33",
+        "35",
+        "41",
+        "49",
+        "49",
+        "52",
+        "52",
+        "E18",
+        "E20"
+      ],
+      "enemyDeck": [
+        "10",
+        "10",
+        "11",
+        "04",
+        "04",
+        "40",
+        "40",
+        "06",
+        "06",
+        "07",
+        "07",
+        "08",
+        "08",
+        "09",
+        "09",
+        "E08",
+        "E09",
+        "E18"
+      ],
+      "games": 500,
+      "wins": 314,
+      "losses": 183,
+      "draws": 3,
+      "winRate": 0.628,
+      "imperfectTurns": 441,
+      "failures": [],
+      "winningReplay": {
+        "mission": 17,
+        "seed": 1700000,
+        "tutorial": false,
+        "exchange": [
+          "u3"
+        ],
+        "turns": [
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u1",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u7",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u12",
+                  "lane": 2,
+                  "targets": [
+                    "u1"
+                  ],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u8",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u2",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u13",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "special": "hymn",
+                  "lane": 2,
+                  "targets": []
+                },
+                {
+                  "uid": "u14",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                },
+                {
+                  "uid": "u16",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "special": "hymn",
+                  "lane": 2,
+                  "targets": []
+                },
+                {
+                  "uid": "u9",
+                  "lane": 0,
+                  "targets": [
+                    "u2"
+                  ],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u11",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u19",
+                  "lane": 1,
+                  "targets": [
+                    "u14"
+                  ],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u18",
+                  "lane": 0,
+                  "targets": [
+                    "u18"
+                  ],
+                  "dest": 1
+                },
+                {
+                  "uid": "u4",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u10",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                },
+                {
+                  "uid": "u6",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                },
+                {
+                  "uid": "u15",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          }
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            12,
+            19,
+            10
+          ],
+          [
+            19,
+            17,
+            8
+          ]
+        ]
+      }
+    },
+    {
+      "mission": 18,
+      "opponent": "KruparGames",
+      "act": 4,
+      "enemyDifficulty": "normal",
+      "rule": "AUDYT: po turach 2 i 4 strona z wyższym wynikiem na ZAPLECZU otrzymuje tam trwały znacznik +1. Przy remisie nikt nie dostaje bonusu.",
+      "playerDeck": [
+        "11",
+        "12",
+        "16",
+        "18",
+        "18",
+        "19",
+        "02",
+        "23",
+        "24",
+        "28",
+        "29",
+        "45",
+        "48",
+        "05",
+        "06",
+        "07",
+        "E16",
+        "E21"
+      ],
+      "enemyDeck": [
+        "28",
+        "03",
+        "31",
+        "34",
+        "36",
+        "36",
+        "37",
+        "37",
+        "04",
+        "04",
+        "47",
+        "49",
+        "51",
+        "51",
+        "06",
+        "10",
+        "21",
+        "E24"
+      ],
+      "games": 500,
+      "wins": 251,
+      "losses": 232,
+      "draws": 17,
+      "winRate": 0.502,
+      "imperfectTurns": 400,
+      "failures": [],
+      "winningReplay": {
+        "mission": 18,
+        "seed": 1800000,
+        "tutorial": false,
+        "exchange": [
+          "u3"
+        ],
+        "turns": [
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u5",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u10",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u11",
+                  "lane": 0,
+                  "targets": [
+                    "u5"
+                  ],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u13",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u14",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u7",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "special": "hymn",
+                  "lane": 0,
+                  "targets": []
+                },
+                {
+                  "uid": "u17",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "special": "hymn",
+                  "lane": 1,
+                  "targets": []
+                },
+                {
+                  "uid": "u15",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                },
+                {
+                  "uid": "u18",
+                  "lane": 0,
+                  "targets": [
+                    "u10"
+                  ],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u19",
+                  "lane": 0,
+                  "targets": [
+                    "u5"
+                  ],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u6",
+                  "lane": 2,
+                  "targets": [
+                    "u15"
+                  ],
+                  "dest": -1
+                },
+                {
+                  "uid": "u20",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u4",
+                  "lane": 0,
+                  "targets": [
+                    "u17"
+                  ],
+                  "dest": 1
+                },
+                {
+                  "uid": "u2",
+                  "lane": 1,
+                  "targets": [
+                    "u2"
+                  ],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u8",
+                  "lane": 2,
+                  "targets": [
+                    "u6"
+                  ],
+                  "dest": 0
+                },
+                {
+                  "uid": "u9",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          }
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            22,
+            17,
+            1
+          ],
+          [
+            19,
+            12,
+            11
+          ]
+        ]
+      }
+    },
+    {
+      "mission": 19,
+      "opponent": "Wapniak",
+      "act": 4,
+      "enemyDifficulty": "normal",
+      "rule": "STARY HEJT: gdy na koniec meczu strona ma 3 lub 4 własne jednostki w jednej strefie, otrzymuje tam −2 punkty strefy (nie osłabia kart; dotyczy obu stron).",
+      "playerDeck": [
+        "10",
+        "11",
+        "02",
+        "24",
+        "26",
+        "29",
+        "30",
+        "31",
+        "34",
+        "34",
+        "37",
+        "43",
+        "45",
+        "46",
+        "51",
+        "51",
+        "E10",
+        "E22"
+      ],
+      "enemyDeck": [
+        "12",
+        "17",
+        "17",
+        "02",
+        "02",
+        "24",
+        "29",
+        "30",
+        "30",
+        "44",
+        "48",
+        "48",
+        "49",
+        "49",
+        "05",
+        "E10",
+        "E13",
+        "E20"
+      ],
+      "games": 500,
+      "wins": 199,
+      "losses": 281,
+      "draws": 20,
+      "winRate": 0.398,
+      "imperfectTurns": 404,
+      "failures": [],
+      "winningReplay": {
+        "mission": 19,
+        "seed": 1900000,
+        "tutorial": false,
+        "exchange": [
+          "u2"
+        ],
+        "turns": [
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u4",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u7",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u12",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u9",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u3",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u15",
+                  "lane": 0,
+                  "targets": [
+                    "u12"
+                  ],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "special": "hymn",
+                  "lane": 1,
+                  "targets": []
+                },
+                {
+                  "uid": "u5",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                },
+                {
+                  "uid": "u1",
+                  "lane": 0,
+                  "targets": [
+                    "u12"
+                  ],
+                  "dest": 1
+                }
+              ],
+              [
+                {
+                  "special": "hymn",
+                  "lane": 1,
+                  "targets": []
+                },
+                {
+                  "uid": "u17",
+                  "lane": 0,
+                  "targets": [
+                    "u7"
+                  ],
+                  "dest": 1
+                },
+                {
+                  "uid": "u8",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u11",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u19",
+                  "lane": 2,
+                  "targets": [
+                    "u4"
+                  ],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u16",
+                  "lane": 0,
+                  "targets": [
+                    "u5"
+                  ],
+                  "dest": -1
+                },
+                {
+                  "uid": "u18",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u22",
+                  "lane": 1,
+                  "targets": [
+                    "u11"
+                  ],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          }
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            10,
+            7,
+            10
+          ],
+          [
+            9,
+            12,
+            9
+          ]
+        ]
+      }
+    },
+    {
+      "mission": 20,
+      "opponent": "ELTaboBot",
+      "act": 4,
+      "enemyDifficulty": "normal",
+      "rule": "NIC TU KURŁA NIE DZIAŁA!: w turach 2, 4 i 6 po jednej wskazanej strefie wyłączane jest PIERWSZE zagrywane Wejście każdej strony (t2 STREAM, t4 CZAT, t6 ZAPLECZE). Dotyczy tylko Wejść z jednostek/wydarzeń, nie bazowej Mocy, Aur ani Rytuału. Efekt znika na końcu bieżącej tury, wskazana strefa jest zapowiedziana od początku meczu.",
+      "playerDeck": [
+        "10",
+        "11",
+        "18",
+        "18",
+        "20",
+        "20",
+        "21",
+        "23",
+        "28",
+        "29",
+        "31",
+        "32",
+        "33",
+        "04",
+        "42",
+        "06",
+        "E21",
+        "E23"
+      ],
+      "enemyDeck": [
+        "12",
+        "02",
+        "25",
+        "25",
+        "28",
+        "37",
+        "37",
+        "04",
+        "04",
+        "45",
+        "47",
+        "47",
+        "05",
+        "51",
+        "51",
+        "E10",
+        "E12",
+        "E21"
+      ],
+      "games": 500,
+      "wins": 243,
+      "losses": 239,
+      "draws": 18,
+      "winRate": 0.486,
+      "imperfectTurns": 388,
+      "failures": [],
+      "winningReplay": {
+        "mission": 20,
+        "seed": 2000000,
+        "tutorial": false,
+        "exchange": [
+          "u3"
+        ],
+        "turns": [
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u1",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u9",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u5",
+                  "lane": 1,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u6",
+                  "lane": 0,
+                  "targets": [
+                    "u9"
+                  ],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u11",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u10",
+                  "lane": 0,
+                  "targets": [
+                    "u10"
+                  ],
+                  "dest": 1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "special": "hymn",
+                  "lane": 1,
+                  "targets": []
+                },
+                {
+                  "uid": "u2",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                },
+                {
+                  "uid": "u4",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "special": "hymn",
+                  "lane": 2,
+                  "targets": []
+                },
+                {
+                  "uid": "u7",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u12",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u8",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          },
+          {
+            "plans": [
+              [
+                {
+                  "uid": "u16",
+                  "lane": 0,
+                  "targets": [],
+                  "dest": -1
+                },
+                {
+                  "uid": "u21",
+                  "lane": 1,
+                  "targets": [
+                    "u5"
+                  ],
+                  "dest": -1
+                }
+              ],
+              [
+                {
+                  "uid": "u18",
+                  "lane": 1,
+                  "targets": [
+                    "u5"
+                  ],
+                  "dest": -1
+                },
+                {
+                  "uid": "u17",
+                  "lane": 2,
+                  "targets": [],
+                  "dest": -1
+                }
+              ]
+            ],
+            "discards": []
+          }
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            19,
+            8,
+            12
+          ],
+          [
+            18,
+            12,
+            8
+          ]
+        ]
+      }
+    }
+  ],
+  "acts": [
+    {
+      "act": 1,
+      "games": 2500,
+      "wins": 2073,
+      "winRate": 0.8292
+    },
+    {
+      "act": 2,
+      "games": 2500,
+      "wins": 1936,
+      "winRate": 0.7744
+    },
+    {
+      "act": 3,
+      "games": 2500,
+      "wins": 1502,
+      "winRate": 0.6008
+    },
+    {
+      "act": 4,
+      "games": 2500,
+      "wins": 1276,
+      "winRate": 0.5104
+    }
+  ],
+  "campaignPath": {
+    "completed": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "saveReloadPassed": true,
+    "note": "Legal winning path with retries allowed; not a no-loss campaign run."
+  },
+  "tutorialReplay": {
+    "mission": 1,
+    "seed": 2030,
+    "tutorial": true,
+    "exchange": [],
+    "turns": [
+      {
+        "plans": [
+          [
+            {
+              "uid": "u1",
+              "lane": 0,
+              "targets": [],
+              "dest": -1
+            }
+          ],
+          [
+            {
+              "uid": "u6",
+              "lane": 0,
+              "targets": [],
+              "dest": -1
+            }
+          ]
+        ],
+        "discards": []
+      },
+      {
+        "plans": [
+          [
+            {
+              "uid": "u2",
+              "lane": 1,
+              "targets": [],
+              "dest": -1
+            }
+          ],
+          [
+            {
+              "uid": "u7",
+              "lane": 1,
+              "targets": [],
+              "dest": -1
+            }
+          ]
+        ],
+        "discards": []
+      },
+      {
+        "plans": [
+          [
+            {
+              "uid": "u3",
+              "lane": 2,
+              "targets": [],
+              "dest": -1
+            }
+          ],
+          [
+            {
+              "uid": "u8",
+              "lane": 2,
+              "targets": [],
+              "dest": -1
+            }
+          ]
+        ],
+        "discards": []
+      },
+      {
+        "plans": [
+          [
+            {
+              "uid": "u4",
+              "lane": 0,
+              "targets": [],
+              "dest": -1
+            },
+            {
+              "uid": "u13",
+              "lane": 0,
+              "targets": [],
+              "dest": -1
+            },
+            {
+              "uid": "u11",
+              "lane": 0,
+              "targets": [
+                "u1"
+              ],
+              "dest": -1
+            }
+          ],
+          [
+            {
+              "uid": "u9",
+              "lane": 0,
+              "targets": [],
+              "dest": -1
+            },
+            {
+              "uid": "u10",
+              "lane": 1,
+              "targets": [],
+              "dest": -1
+            }
+          ]
+        ],
+        "discards": []
+      },
+      {
+        "plans": [
+          [
+            {
+              "uid": "u15",
+              "lane": 1,
+              "targets": [],
+              "dest": -1
+            },
+            {
+              "uid": "u17",
+              "lane": 2,
+              "targets": [],
+              "dest": -1
+            }
+          ],
+          [
+            {
+              "uid": "u12",
+              "lane": 0,
+              "targets": [],
+              "dest": -1
+            },
+            {
+              "uid": "u14",
+              "lane": 1,
+              "targets": [],
+              "dest": -1
+            }
+          ]
+        ],
+        "discards": []
+      },
+      {
+        "plans": [
+          [
+            {
+              "uid": "u5",
+              "lane": 0,
+              "targets": [],
+              "dest": -1
+            }
+          ],
+          [
+            {
+              "uid": "u16",
+              "lane": 0,
+              "targets": [],
+              "dest": -1
+            }
+          ]
+        ],
+        "discards": []
+      }
+    ],
+    "winner": 0,
+    "scores": [
+      [
+        17,
+        10,
+        10
+      ],
+      [
+        20,
+        8,
+        5
+      ]
+    ]
+  },
+  "errors": [],
+  "difficultyIncreasesByAct": true,
+  "seconds": 62.43,
+  "passed": true
+}

@@ -50,7 +50,8 @@ class BadgePlacementTests(unittest.TestCase):
 
     def test_rule_and_protection_stay_separate(self):
         self.assertIn('y: card.onTable && card.info.nameRuleBadge ? 49', CARD)
-        self.assertIn('font.pixelSize: card.width < 80 ? 16 : 24', CARD)
+        self.assertIn('text: "OCHRONA"', CARD)
+        self.assertNotIn('text: "◆"', CARD)
         for width in (52, 67, 98, 132):
             bottom = 2 + (14 if width < 80 else 17)
             protection_top = 49

@@ -25,4 +25,4 @@ exe = EXE(pyz, a.scripts, [], exclude_binaries=True, name="TABOt", debug=False,
 coll = COLLECT(exe, a.binaries, a.datas, strip=False, upx=False, name="TABOt")
 if sys.platform == "darwin":
     app = BUNDLE(coll, name="TABOt.app", icon=str(root / "ikona.icns"), bundle_identifier="pl.tabota.game",
-                 info_plist={"CFBundleShortVersionString": "1.0.2", "NSHighResolutionCapable": True})
+                 info_plist={"CFBundleShortVersionString": "1.0.4", "NSHighResolutionCapable": True})

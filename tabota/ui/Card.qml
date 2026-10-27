@@ -209,15 +209,20 @@ Item {
             anchors.centerIn: parent; width: parent.width * 1.18; height: 6; radius: 3; rotation: -34
             color: "#e34a4a"; opacity: .82
         }
-        Text {
-            visible: card.battle && card.info.protected === true
-            // Shield remains separate from both the energy chip and the rule
-            // badge. On compact cards it sits directly BELOW the top rail.
-            x: parent.width - (card.width < 80 ? 15 : 21)
-            y: card.onTable && card.info.nameRuleBadge ? 49 : (card.info.nameRuleBadge && card.width >= 80 ? 13 : -8)
-            text: "◆"; color: Theme.green
-            font.pixelSize: card.width < 80 ? 16 : 24
-            style: Text.Outline; styleColor: Theme.ink
+        Rectangle {
+            objectName: "tabotaProtectionBadge"
+            visible: card.battle && card.faceUp && card.info.protected === true
+            // Spell out the status; an unexplained diamond looked like an artifact.
+            width: Math.min(parent.width, 72); height: card.width < 80 ? 14 : 18
+            x: parent.width - width
+            y: card.onTable && card.info.nameRuleBadge ? 49 : 24
+            color: Theme.ink; border.color: Theme.green; radius: 3
+            Accessible.name: "Ochrona: blokuje jeden wrogi efekt"
+            Text {
+                anchors.centerIn: parent
+                text: "OCHRONA"; color: Theme.green; font.bold: true
+                font.pixelSize: card.width < 80 ? 8 : 11
+            }
         }
         Text {
             id: changeLabel
@@ -317,6 +322,7 @@ Item {
         "\n✦ Moc: " + (card.info.currentPower === undefined ? card.info.power : card.info.currentPower) +
         " (bazowa " + (card.info.power || 0) + ", zmiany " + (card.info.buff || 0) + ", aura " + (card.info.aura || 0) + ")") +
         (card.info.nameRuleHint ? "\n" + card.info.nameRuleHint : "") +
+        (card.info.protected ? "\nOchrona: blokuje jeden wrogi efekt, po czym znika." : "") +
         (card.info.silenced ? "\n⛔ Wyciszona: Aura i Finał tej karty są wyłączone." : "") +
         "\n" + (card.info.description || "") : "\nPrawy przycisk lub I: pełna ilustracja")
     }
