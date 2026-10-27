@@ -359,6 +359,12 @@ Item {
             }
             Rectangle { width: parent.width; height: 1; color: Theme.line }
             Text { width: parent.width; text: "RYTUAŁ 20:30"; color: Theme.muted; font.pixelSize: 10; font.letterSpacing: 1 }
+            BButton {
+                objectName: "tabotaRitualButton"
+                text: "Rytuał"; width: parent.width; compact: true
+                enabled: b.ritual && !s.busy && !b.rulePending && !b.mulligan
+                onClicked: { table.ritualPrompted = true; api.ritual("all") }
+            }
             Text {
                 objectName: "tabotaUsedRitual"
                 width: parent.width

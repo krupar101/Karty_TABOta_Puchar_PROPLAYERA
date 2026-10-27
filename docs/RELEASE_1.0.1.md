@@ -1,4 +1,4 @@
-# Karty TABOta — 1.0.1
+# Karty TABOta - 1.0.1
 
 Wydanie lokalne: 27.10.2026. Platformy: Windows x64 i Linux x86_64.
 
