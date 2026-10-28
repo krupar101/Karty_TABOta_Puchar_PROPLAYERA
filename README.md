@@ -39,7 +39,7 @@ py -3.12 -m venv .venv
 .venv\Scripts\python main.py
 ```
 
-Jeśli Qt zgłasza problem ze sterownikiem GPU, uruchom `main.py --software`. Na minimalnej instalacji Ubuntu potrzebne mogą być pakiety `libegl1 libopengl0 libxcb-cursor0 libxkbcommon-x11-0 libxcb-icccm4 libxcb-keysyms1 libxcb-shape0 libxcb-xinerama0`. Gra skaluje układ do okna; zalecane co najmniej 1280×720.
+Jeśli Qt zgłasza problem ze sterownikiem GPU, uruchom `main.py --software` (w gotowej paczce: `./TABOt --software`). Na minimalnej instalacji Ubuntu potrzebne mogą być pakiety `libstdc++6 libpulse0 libegl1 libopengl0 libxcb-cursor0 libxkbcommon-x11-0 libxcb-icccm4 libxcb-keysyms1 libxcb-shape0 libxcb-xinerama0`. Paczka Linuksa korzysta z systemowej biblioteki `libstdc++.so.6`, aby nie blokować ładowania nowszych sterowników Mesa/EGL. Gra skaluje układ do okna; zalecane co najmniej 1280×720.
 
 ## Co jest w grze
 

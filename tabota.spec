@@ -15,6 +15,11 @@ datas = [(str(root / "cursor"), "cursor"), (str(root / "ikona.png"), "."), (str(
 a = Analysis([str(root / "main.py")], pathex=[str(root)], binaries=[], datas=datas,
              hiddenimports=["PySide6.QtQuick", "PySide6.QtQuickControls2", "PySide6.QtMultimedia"],
              hookspath=[], hooksconfig={}, runtime_hooks=[], excludes=[], noarchive=False)
+if sys.platform == "linux":
+    # Use the host C++ runtime: Mesa/EGL drivers on newer distributions can
+    # require GLIBCXX symbols missing from the build runner's libstdc++.
+    a.binaries = [entry for entry in a.binaries
+                  if not Path(entry[0]).name.startswith("libstdc++.so")]
 pyz = PYZ(a.pure)
 exe = EXE(pyz, a.scripts, [], exclude_binaries=True, name="TABOt", debug=False,
           bootloader_ignore_signals=False, strip=False, upx=False, console=False,
